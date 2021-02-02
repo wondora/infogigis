@@ -10,10 +10,10 @@ WORKDIR /home/infogigis
 
 RUN pip install -r requirements.txt
 
-RUN pip install gunicorn
+RUN echo "SECRET_KEY=0lb#yu$t1r8_+0g-yt33@y)ge2(&+4_$r84&hi(7#tz3l^yo21" > .env
 
-RUN pip install mysqlclient
+RUN pip manage.py migrate
 
 EXPOSE 8000
 
-CMD ["bash", "-c", "python manage.py collectstatic --noinput --settings=gshs.settings.deploy && python manage.py migrate --settings=gshs.settings.deploy && gunicorn infogigi.wsgi --env DJANGO_SETTINGS_MODULE=gshs.settings.deploy --bind 0.0.0.0:8000"]
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
