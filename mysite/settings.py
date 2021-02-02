@@ -52,8 +52,7 @@ INSTALLED_APPS = [
     'import_export',
     'widget_tweaks',
     'imagekit',    
-    'django.contrib.humanize',
-    'info',
+    'django.contrib.humanize',    
 ]
 
 MIDDLEWARE = [

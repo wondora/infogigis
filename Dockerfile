@@ -8,7 +8,7 @@ WORKDIR /home/infogigis
 
 RUN pip install -r requirements.txt
 
-RUN echo "testing"
+RUN echo "testing13333"
 
 RUN echo "SECRET_KEY=0lb#yu$t1r8_+0g-yt33@y)ge2(&+4_$r84&hi(7#tz3l^yo21" > .env
 
