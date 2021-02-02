@@ -20,7 +20,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'infogigi',
         'USER':'wondora',
-        'PASSWORD':read_secret('MYSQL_PASSWORD'),
+        'PASSWORD':'MYSQL_PASSWORD',
         'HOST':'mariadb',
         'PORT':'3306',
     }
