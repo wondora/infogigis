@@ -15,8 +15,8 @@ environ.Env.read_env(
     env_file=os.path.join(BASE_DIR, '.env')
 )
 
-SECRET_KEY = read_secret('DJANGO_SECRET_KEY')
-
+# SECRET_KEY = read_secret('DJANGO_SECRET_KEY')
+SECRET_KEY = "0lb#yu$t1r8_+0g-yt33@y)ge2(&+4_$r84&hi(7#tz3l^yo21"
 DEBUG = False
 
 ALLOWED_HOSTS = ['*']
