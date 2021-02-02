@@ -1,0 +1,53 @@
+{% if form.errors %}
+    <div class="alert alert-danger" role="alert">
+    {% for field in form %}
+        {% if field.errors %}
+        <strong>{{ field.label }}</strong>
+        {{ field.errors }}
+        {% endif %}
+    {% endfor %}
+    </div>
+{% endif %}
+<!-- 오류표시 End -->
+<div class="form-group">
+    <label for="productgubun">제품구분</label>
+    <input type="text" class="form-control" name="productgubun" id="productgubun" value="{{ form.productgubun.value|default_if_none:'' }}">
+</div>
+<div class="form-group">
+    <label for="buy_date">구매일</label>
+    <input type="date" class="form-control" name="buy_date" id="buy_date" value="{{ form.buy_date.value|default_if_none:'' }}">
+</div>
+<div class="form-group">
+    <label for="people">성명</label>
+    <input type="text" class="form-control" name="people" id="people" value="{{ form.people.value|default_if_none:'' }}">
+</div>
+<div class="form-group">
+    <label for="place">장소</label>
+    <input type="text" class="form-control" name="place" id="place" value="{{ form.place.value|default_if_none:'' }}">
+</div>
+<div class="form-group">
+    <label for="maker">제조사</label>
+    <input type="text" class="form-control" name="maker" id="maker" value="{{ form.maker.value|default_if_none:'' }}">
+</div>
+<div class="form-group">
+    <label for="model">모델명</label>
+    <input type="text" class="form-control" name="model" id="model" value="{{ form.model.value|default_if_none:'' }}">
+</div>
+<div class="form-group">
+    <label for="color">색상</label>
+    <input type="text" class="form-control" name="color" id="color" value="{{ form.color.value|default_if_none:'' }}">
+</div>
+<div class="form-group">
+    <label for="ip">IP</label>
+    <input type="text" class="form-control" name="ip" id="ip" value="{{ form.ip.value|default_if_none:'' }}">
+</div>
+<div class="form-group">
+    <label for="status">상태</label>
+    <input type="checkbox" class="form-control" name="status" id="status" checked>
+</div>
+<div class="form-group">
+    <label for="bigo">비고</label>
+    <input type="text" class="form-control" name="bigo" id="bigo" value="{{ form.bigo.value|default_if_none:'' }}">
+</div>
+
+

@@ -1,0 +1,19 @@
+{% include "django/forms/widgets/select.html" %}
+
+{% comment %} {{ form.media }} {% endcomment %}
+<link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/css/select2.min.css" rel="stylesheet" type="text/css">
+<script src="//code.jquery.com/jquery-3.4.1.min.js" defer></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js" defer></script>
+<script>
+    $(function(){
+        var options = { minimumInputLength: 1 };        
+        var ajax_url = "{{ ajax_url |default:''}}";
+        if (ajax_url.length > 0){
+            options['ajax'] = {
+                'url': ajax_url,
+                'dataType': 'json',
+            };
+        }
+        $('#{{ widget.attrs.id }}').select2(options);
+    });
+</script>

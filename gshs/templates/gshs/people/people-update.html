@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load widget_tweaks %}
+{% block title %}Update People{% endblock %}
+
+{% block content %}
+    <div style="margin-bottom:50px;color:#bfc144;">
+        <h1>Update People</h1> 
+        <hr>
+    </div>    
+    {% if form.errors %}
+    <div>
+        <div class="font-weight-bold">Wrong! please correct the form error(s) below.</div>
+        {{form.errors}}
+    </div>
+    {% endif %}
+    {% if formset.errors %}
+    <div>
+        <div class="font-weight-bold">Wrong! please correct the formset error(s) below.</div>
+        {% for formerrors in formset.errors %}
+            {{formerrors}}
+        {% endfor %}
+    </div>
+    {% endif %}
+    <form action="" method="post">
+    {% csrf_token %}       
+        <fieldset class="card pt-5 pl-3 pr-3 pb-3">
+            <div class="form-group row">
+                {{ form.name|add_label_class:"col-form-label col-sm-3 ml-3 font-weight-bold" }}
+                <div class="col-sm-5">
+                    {{ form.name|add_class:"form-control"}}
+                </div>
+            </div>
+            <div class="form-group row">
+                {{ form.place|add_label_class:"col-form-label col-sm-3 ml-3 font-weight-bold" }}
+                <div class="col-sm-5">
+                    {{ form.place|add_class:"form-control"}}
+                </div>
+            </div>
+            <div class="form-group row">
+                {{ form.phone_number|add_label_class:"col-form-label col-sm-3 ml-3 font-weight-bold" }}
+                <div class="col-sm-5">
+                    {{ form.phone_number|add_class:"form-control"}}
+                </div>
+            </div>
+            <div class="form-group row">
+                {{ form.tel_number|add_label_class:"col-form-label col-sm-3 ml-3 font-weight-bold" }}
+                <div class="col-sm-5">
+                    {{ form.tel_number|add_class:"form-control"}}
+                </div>
+            </div>
+            <div class="form-group row">
+                {{ form.status|add_label_class:"col-form-label col-sm-3 ml-3 font-weight-bold" }}
+                <div class="col-sm-5">
+                    {{ form.status|add_class:"form-control"}}
+                </div>
+            </div>
+            <div class="form-group row">
+                {{ form.bigo|add_label_class:"col-form-label col-sm-3 ml-3 font-weight-bold" }}
+                <div class="col-sm-5">
+                    {{ form.bigo|add_class:"form-control"}}
+                </div>
+            </div>
+        </fieldset>
+        <br>
+        
+{% endblock content %}

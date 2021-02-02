@@ -1,0 +1,46 @@
+{% for item in object_list %}
+    <tr>
+        <td>{{ item.productgubun }}</td>
+        <td>{{ item.buy_date|date:'Y.m.d'}}</td>
+        {% if gigigubun == "NOTEBOOK" or gigigubun == "DESKTOP" or gigigubun == "all" %}
+            <td>{{ item.people }}</td>
+        {% endif %}    
+        <td>{{ item.place }}</td>
+        <td>{{ item.maker }}</td>
+        <td>{{ item.model }}</td>
+        {% if gigigubun == "PRINTER" or gigigubun == "all" %}
+            <td>{{ item.color }}</td>
+        {% endif %}
+        <td>{{ item.ip }}</td>
+        <td>{{ item.bigo }}</td>
+        <td>               
+            <button class="custom-btn js-update-infogigi" data-url="{% url 'gshs:update_infogigi' item.id %}" title="글 수정">
+                <i class="fas fa-edit"></i>
+            </button> 
+            <button class="custom-btn js-suri-infogigi {{ item.id }}" data-url="{% url 'gshs:suri_infogigi'%}" title="기기 수리">
+                <i class="fas fa-tools"></i>
+            </button>    
+            <button class="custom-btn js-bupum-infogigi {{ item.id }}" data-url="{% url 'gshs:bupum_infogigi'%}" title="소모품 교환">
+                <i class="fas fa-exchange-alt"></i>
+            </button> 
+            <button class="custom-btn js-jaego-infogigi" id="gigimove" data-url="{% url 'gshs:jaego_infogigi' item.id %}" title="재고 테이블로 이동">
+                <i class="fas fa-archive"></i>
+            </button>  
+                      
+            <a class="del-btn" type="button" href="{% url 'gshs:delete_infogigi' item.id %}" onclick="return confirm('정말 삭제하시겠습니까?')" title="글 삭제">
+                <i class="fas fa-trash"></i>
+            </a>
+        </td>
+    </tr>
+{% empty %}
+<div class="card" style="margin-top:50px;">
+    <div class="card-header">
+        Search Result
+    </div>
+    <div class="card-body" style="text-align:center;">
+        <h2>검색 결과가 없습니다.</h2>            
+    </div>
+</div> 
+{% endfor %}
+
+

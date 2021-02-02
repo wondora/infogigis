@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Home Page {% endblock %}
+{% block js %} 
+<script type="text/javascript" src="{% static 'gshs/js/infogigis.js' %}"></script>   
+{% endblock %}
+{% block extra-style %} {% endblock %}
+
+{% block content %}
+<div class="table-title" style="float:left; width: 40%; display: inline-block;">
+    <span>PEOPLE</span>
+</div>
+<div style="display: inline-block; width: 60%;  text-align:right;">
+    <form action="{% url 'gshs:search_people' %}" method="get" style="display:inline-block;" >        
+    <input style="height:32px;padding:0 10px;" type="text" name="word" class="form-class" value={{ word }}> 
+    <button class="custom-btn" style="margin-top:2px;">
+        <i class="fas fa-search"></i>
+    </button> 
+    </form> 
+    <span style="margin-left:10px;">
+        <button class="custom-btn" onclick='location.href="{% url 'gshs:create_people' %}"' title="새글 쓰기">
+            <i class="far fa-plus-square"></i>
+        </button>
+    </span> 
+</div>      
+
+<table class="custom-table" id="suri-table">
+    <thead style="font-size: 14px;">
+        <tr>
+            <th>성명</th>
+            <th>부서</th>                        
+            <th>핸드폰</th>
+            <th>내선</th>   
+            <th>재직</th>                 
+            <th>비고</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% include './people-list.html'%}
+    </tbody>
+</table>
+
+<button class="custom-btn" onclick='location.href="{% url 'gshs:create_people' %}"' title="새글 쓰기">
+    <i class="far fa-plus-square"></i>
+</button>
+
+{% include 'gshs/snippet/_pagination.html' with page_obj=page_obj page_range=page_range %}
+
+<div class="modal fade" id="{{ modal_gubun }}">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

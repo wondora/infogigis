@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}SOFTWARE STOCK{% endblock %}
+{% block js %} 
+<script type="text/javascript" src="{% static 'gshs/js/infogigis.js' %}"></script>   
+{% endblock %}
+{% block extra-style %} {% endblock %}
+
+{% block content %}
+<div class="table-title" style="float:left; width: 40%; display: inline-block;">
+    <span>SOFTWARE</span>
+</div>
+<div style="display: inline-block; width: 60%;  text-align:right;">
+    <form action="" method="get" style="display:inline-block;" >        
+    <input style="height:32px;padding:0 10px;" type="text" name="word" class="form-class" value={{ word }}> 
+    <button class="custom-btn" style="margin-top:2px;">
+        <i class="fas fa-search"></i>
+    </button> 
+    </form>      
+</div>      
+
+<table class="custom-table" id="suri-table">
+    <thead style="font-size: 14px;">
+        <tr>
+            <th>구매일</th>                                    
+            <th>제품명</th>
+            <th>구매수량</th>   
+            <th>가격</th>
+            <th>남은수량</th>                  
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% include './softwarestock-list.html'%}
+    </tbody>
+</table>
+
+{% include 'gshs/snippet/_pagination.html' with page_obj=page_obj page_range=page_range %}
+
+<div class="modal fade" id="{{ modal_gubun }}">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

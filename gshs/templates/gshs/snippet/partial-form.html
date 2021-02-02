@@ -1,0 +1,14 @@
+{% load widget_tweaks %}
+{% for field in form %}
+    <div class="form-group{% if field.errors %} has-error{% endif %}">        
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {% render_field field class="form-control" %}
+        {% for text in field %}
+            <small style="color: red;">{{ field.help_text|safe }}</small>
+        {% endfor %}
+        {% for error in field.errors %}
+            <p class="help-block" sytle="color:red">{{ error }}</p>
+        {% endfor %}        
+    </div>   
+{% endfor %}
+<input name="transfer_no" type="hidden" value="{{ transfer_no }}">

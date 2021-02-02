@@ -1,0 +1,32 @@
+{% load humanize %} 
+{% for item in object_list %}
+    <tr>            
+        <td>{{ item.created_date|date:'Y.m.d'}}</td>              
+        <td>{{ item.productgubun }}</td>
+        <td>{{ item.vendor }}</td>
+        {% comment %} <td>{{ item.vendor.all | join:"," }}</td> {% endcomment %}
+        <td>{{ item.maker }}</td>            
+        <td>{{ item.model }}</td>
+        <td>{{ item.count }}</td>
+        <td>{{ item.price|intcomma }} 원</td>
+        <td>{{ item.bigo }}</td>
+        <td>               
+            <button class="custom-btn js-productbuy-update" data-url="{% url 'gshs:update_productbuy' item.id %}" title="글 수정">
+                <i class="fas fa-edit"></i>
+            </button>             
+            <a class="del-btn" type="button" href="{% url 'gshs:delete_productbuy' item.id %}" onclick="return confirm('정말 삭제하시겠습니까?')" title="글 삭제">
+                <i class="fas fa-trash"></i>
+            </a>            
+        </td>
+    </tr>
+{% empty %}
+<div class="card" style="margin-top:50px;">
+    <div class="card-header">
+        Search Result
+    </div>
+    <div class="card-body" style="text-align:center;">
+        <h2>검색 결과가 없습니다.</h2>            
+    </div>
+</div>  
+{% endfor %}
+ 

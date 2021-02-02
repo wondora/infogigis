@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} Info for gigi {% endblock %}</title> 
+    <link href="{% static 'gshs/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'gshs/css/custom.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'gshs/css/simpleLightbox.min.css' %}" rel="stylesheet" type="text/css">
+    <!-- 폰트 어썸 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"/>    
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css"> 
+    <!--jquery & bootstrap js -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="{% static 'gshs/js/bootstrap.min.js' %}"></script>    
+    <script src="{% static 'gshs/js/simpleLightbox.min.js' %}"></script>  
+    <!-- google fonts-->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
+    
+    {% block extra-style %} 
+    {% endblock %}         
+</head>
+<body>
+    <div id="wrap">  
+        <div class="headers">
+            <ul>
+                {% if not user.is_authenticated %}
+                <li>
+                    <a href="{% url 'accountapp:login' %}?next={{ request.path }}">
+                        <span>login</span>
+                    </a>
+                </li>                
+                {% else %}
+                <li>
+                    <a href="{% url 'accountapp:logout' %}">
+                        <span>logout</span>
+                    </a>
+                </li>   
+                {% comment %} <li>
+                    <a href="{% url 'accountapp:update' pk=user.pk %}">
+                        <span>change_pwd</span>
+                    </a>
+                </li>              {% endcomment %}
+                {% endif %}
+            </ul>
+        </div>      
+        <div class="logo">
+            <span style="color:#d48e8e; font-size:50px;">Hello</span><span class="logo-title"> GSHS</span>
+        </div>
+        <div class="navs line-height-0">      
+            <ul>
+                <li>
+                    <a href="{% url 'gshs:infogigi_list' gigigubun='all' %}">device info</a>    
+                </li>
+                <li>
+                    <a href="#">product service</a>
+                    <ul>
+                        <li><a href="{% url 'gshs:bupum_list' %}">bupum change</a></li>
+                        <li><a href="{% url 'gshs:suri_list' %}">product suri</a></li>
+                        <li><a href="{% url 'gshs:productbuy_list' %}">product buy</a></li>                        
+                    </ul> 
+                </li>
+                <li>  
+                    <a href="#">product stock</a>
+                    <ul>
+                        <li><a href="{% url 'gshs:jaego_list' %}">stock report</a></li>
+                        <li><a href="{% url 'gshs:gigirental_list' %}">stock rental</a></li> 
+                        <li><a href="{% url 'gshs:softwarestock_list' %}">soft report</a></li>
+                        <li><a href="{% url 'gshs:softwarerental_list' %}">soft rental</a></li>                                                
+                    </ul> 
+                </li>
+                <li><a href="{% url 'gshs:people_list' %}">people</a></li> 
+                {% if request.user.is_authenticated %}               
+                <li>
+                    <a href="#">export excel</a> 
+                    <ul>
+                        <li><a href="{% url 'gshs:export_excel' %}?gigigubun=NOTEBOOK">notebook</a></li>
+                        <li><a href="{% url 'gshs:export_excel' %}?gigigubun=DESKTOP">desktop</a></li>
+                        <li><a href="{% url 'gshs:export_excel' %}?gigigubun=PRINTER">printer</a></li>
+                        <li><a href="{% url 'gshs:export_excel' %}?gigigubun=PROJECTOR">projector</a></li>
+                        <li><a href="{% url 'gshs:export_excel' %}?gigigubun=TV">Tv</a></li>
+                    </ul> 
+                </li>
+                {% endif %}
+            </ul>            
+        </div>
+        <!-- <aside></aside> -->
+        <section>
+            <div class="content">
+                {% block content %}{% endblock %}
+            </div>            
+        </section>
+        <footer style="margin-top:100px;">                      
+            <div style="text-align:center; color: #ccc; font-size: 14px;">
+                Copyright(c)2021 choi chang won All rights reserved.
+            </div>          
+        </footer>
+    </div>    
+    {% block js %}        
+    {% endblock %}     
+</body>
+</html>

@@ -1,0 +1,16 @@
+<form method="post" action="{% url 'gshs:delete_infogigi' pk %}" class="js-infogigi-delete-form">
+    {% csrf_token %}
+    <div class="modal-header">
+        <h4 class="modal-title">기기 삭제 확인</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <p class="lead"><strong>{{ infogigi.model }}</strong>을 삭제 할까요?</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-outline-danger">Delete</button>
+    </div>
+</form>
