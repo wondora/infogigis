@@ -2,7 +2,7 @@ FROM python:3.8.5
 
 WORKDIR /home/
 
-RUN echo "testing11332"
+RUN echo "testing1"
 
 RUN git clone https://github.com/wondora/infogigis.git 
 

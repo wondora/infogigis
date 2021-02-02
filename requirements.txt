@@ -2,6 +2,7 @@ asgiref==3.3.1
 defusedxml==0.6.0
 diff-match-patch==20200713
 Django==3.1.4
+Django-environ==0.4.5
 django-appconf==1.0.4
 django-imagekit==4.0.2
 django-import-export==2.5.0

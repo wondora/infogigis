@@ -12,7 +12,7 @@ services:
       - 80:80
   
   django-gunicorn:
-    image: django-guni-image:6
+    image: django-guni-image:1
     networks:
       - network
     volumes:
