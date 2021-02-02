@@ -11,9 +11,10 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 import os
 from django.urls.base import reverse_lazy
+from pathlib import Path
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 # Application definition
 
@@ -25,8 +26,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'gshs.apps.GshsConfig',   
-    'accountapp.apps.AccountappConfig',
-    'profileapp.apps.ProfileappConfig',
+    'accountapp.apps.AccountappConfig',    
     'import_export',
     'widget_tweaks',
     'imagekit',    
@@ -62,6 +62,13 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'mysite.wsgi.application'
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': 'redis://127.0.0.1:6379',
+    },
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
@@ -104,8 +111,13 @@ IMPORT_EXPORT_USE_TRANSACTIONS = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'gshs', 'static')
+    os.path.join(BASE_DIR, 'static')
 ]
+
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+)
 
 LOGIN_REDIRECT_URL = reverse_lazy('gshs:infogigi_list', kwargs={'gigigubun' : 'all'})
 LOGOUT_REDIRECT_URL = reverse_lazy('accountapp:login')

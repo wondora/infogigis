@@ -2,7 +2,7 @@ from .base import *
 import os, environ
 
 def read_secret(secret_name):
-    with open('/run/secrets' + secret_name) as f:
+    with open('/run/secrets/' + secret_name) as f:
         secret = f.read()
         secret = secret.strip()
     return secret 

@@ -1,0 +1,54 @@
+version: "3.7"
+services:
+  nginx:
+    image: nginx:1.19.5
+    networks:
+      - network
+    volumes:
+      - /home/django-gshs/nginx.conf:/etc/nginx/nginx.conf
+      - static-volume:/data/static
+      - media-volume:/data/media
+    ports:
+      - 80:80
+  
+  django-gunicorn:
+    image: django-guni-image:5
+    networks:
+      - network
+    volumes:
+      - static-volume:/home/infogigi/staticfiles
+      - media-volume:/home/infogigi/media
+    secrets:
+      - MYSQL_PASSWORD
+      - DJANGO_SECRET_KEY
+
+  mariadb:
+    image: mariadb:10.5
+    networks:
+      - network
+    volumes:
+      - maria-database:/var/lib/mysql
+    secrets:
+      - MYSQL_PASSWORD
+      - MYSQL_ROOT_PASSWORD
+    environment:
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/MYSQL_ROOT_PASSWORD
+      MYSQL_DATABASE: infogigi
+      MYSQL_USER: wondora
+      MYSQL_PASSWORD_FILE: /run/secrets/MYSQL_PASSWORD
+
+networks:
+  network:
+
+volumes:
+  static-volume:
+  media-volume:
+  maria-database:
+
+secrets:
+  DJANGO_SECRET_KEY:
+    external: true
+  MYSQL_PASSWORD:
+    external: true
+  MYSQL_ROOT_PASSWORD:
+    external: true
