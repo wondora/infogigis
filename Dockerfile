@@ -12,7 +12,7 @@ RUN pip install -r requirements.txt
 
 RUN echo "SECRET_KEY=0lb#yu$t1r8_+0g-yt33@y)ge2(&+4_$r84&hi(7#tz3l^yo21" > .env
 
-RUN pip manage.py migrate
+RUN python manage.py migrate
 
 EXPOSE 8000
 
