@@ -86,6 +86,7 @@ class SearchinfoLV(ListView):
 
         page_range = paginator.page_range[start_index:end_index]
         context['page_range'] = page_range
+        context['gigi_count'] = paginator.count
         context['word'] = self.word
        
         return context
