@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/1.11/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.11/ref/settings/
 """
-import os
+import os, environ
 from django.urls.base import reverse_lazy
 from pathlib import Path
 
@@ -26,7 +26,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'gshs.apps.GshsConfig',   
-    'accountapp.apps.AccountappConfig',    
+    'accountapp.apps.AccountappConfig', 
+    'memo.apps.MemoConfig',   
     'import_export',
     'widget_tweaks',
     'imagekit',    

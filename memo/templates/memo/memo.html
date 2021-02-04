@@ -1,0 +1,57 @@
+{% load static %}
+
+<input type="checkbox" id="menuicon">
+<label for="menuicon">
+    <span></span>
+    <span></span>
+    <span></span>
+</label>
+<div class="sidebar" style="text-align:center;">
+    <div style="color: white; margin-top: 50px;">       
+        <form class="memo_form" action="{% url 'memo:memo' %}" method="post" style="margin-bottom: 30px;">
+        {% csrf_token %}
+            <input style="color: white;background-color:#6d6d6d;width:80%;padding:20px;border:1px solid #ccc;border-radius:10px;" type="text" name="title" required>
+            <br>
+            <textarea name="content" cols="30" rows="3" style="color: white;background-color:#6d6d6d;width:80%; padding:20px;margin:10px 0;border:1px solid #ccc;border-radius:10px;" required>
+            </textarea>
+            <button style="width:80%;color: white; font-size: 20px;background-color:#6d6d6d;padding:10px;border:1px solid #ccc;border-radius:10px;">submit</button>
+        </form>        
+        <div id="memo_list">
+            {% for memo in memos %}
+            <div style="display:inline-block;width:80%; margin: 20px; padding: 20px;border-bottom:1px solid #ccc;">
+                <p>{{ memo.title }}</p>
+                <p>{{ memo.created_date|date:'Y.m.d' }}</p>
+                <p>{{ memo.content|linebreaks }}</p>
+            </div>
+            {% endfor %}
+        </div>        
+    </div>
+</div>
+
+<script>
+$(document).ready(function () {
+    let MemoForm = function () {
+        let form = $(this);  
+        $.ajax({
+        url: form.attr("action"),
+        data: form.serialize(),
+        type: form.attr("method"),
+        dataType: 'json',        
+        success: function (data) {
+            if (data.form_is_valid) {  
+                let htmlCode = '';
+                htmlCode += '<div style="display:inline-block;width:80%; margin: 20px; padding: 20px;border-bottom:1px solid #ccc;">'
+                htmlCode += "<p>" +  data.memos['title'] + "</p>"
+                htmlCode += "<p>" +  data.memos['created_date'] + "</p>"
+                htmlCode += "<p>" +  data.memos['content'] + "</p>"
+                htmlCode += '</div>'
+            $(".memo_form")[0].reset();
+            $('#memo_list').prepend(htmlCode); 
+            }                     
+        }
+        });
+        return false;
+    };
+    $(".memo_form").submit(MemoForm);
+})
+</script>

@@ -7,6 +7,7 @@
     <title>{% block title %} Info for gigi {% endblock %}</title> 
     <link href="{% static 'gshs/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css">
     <link href="{% static 'gshs/css/custom.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'memo/css/memo.css' %}" rel="stylesheet" type="text/css">
     <link href="{% static 'gshs/css/simpleLightbox.min.css' %}" rel="stylesheet" type="text/css">
     <!-- 폰트 어썸 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"/>    
@@ -86,7 +87,11 @@
                 {% endif %}
             </ul>            
         </div>
-        <!-- <aside></aside> -->
+        <!--start aside -->
+        <div class="aside">
+        {% include 'memo/memo.html' %}
+        </div>
+        <!--end aside -->
         <section>
             <div class="content">
                 {% block content %}{% endblock %}

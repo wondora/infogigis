@@ -2,14 +2,15 @@ from django.urls import include, path
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
-from django.contrib.auth.views import LoginView
+from . import views
 
 
 urlpatterns = [
-    path('', LoginView.as_view(template_name='accountapp/login.html')),
+    path('', views.LoginView.as_view()),
     path('admin/', admin.site.urls),
     path('gshs/', include('gshs.urls')),  
     path('accounts/', include('accountapp.urls')),
+    path('memo/', include('memo.urls')),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 # if settings.DEBUG: 
