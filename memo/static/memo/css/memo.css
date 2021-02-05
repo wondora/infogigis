@@ -52,14 +52,67 @@ input[id="menuicon"]:checked + label span:nth-child(3) {
 div[class="sidebar"] {
     width:calc(40%);
     height:100%;
-    background:#6d6d6d;
+    background:#fafafa;
     position:fixed;
     top:0;
     left:calc(-40%);
     z-index:1;
-    transition:all .35s;
-    opacity: 0.7;
+    transition:all .35s;    
 }
 input[id="menuicon"]:checked + label + div {
     left:0;
+}
+
+#memo_list div {
+    display:inline-block;
+    width:80%; 
+    margin: 20px; 
+    padding: 10px;
+    border-bottom:1px solid #ddd;
+} 
+#memo_list p.list1 {
+    text-align: left; 
+    margin-left:10px; 
+    margin-bottom: 2px;
+    font-weight: normal; 
+    font-size: 1.3rem;
+}
+#memo_list p.list2 {
+    text-align: left; 
+    margin-left:10px; 
+    color: #b9b9b9;
+    font-weight:normal;
+} 
+
+.sidebar form > div {
+    display:inline-block;
+    width:80%;
+    text-align:left;
+    margin-left:20px;
+}
+.sidebar form textarea {
+    background-color:#fafafa;width:90%; 
+    padding:10px;
+    margin:10px 0 5px;
+    border:1px solid #ddd;
+    border-radius:10px;
+}
+.sidebar form input {
+    background-color:#fafafa;
+    width:90%;
+    padding:10px;
+    border:1px solid #ddd;
+    border-radius:10px;
+}
+.sidebar form button {
+    position: absolute; 
+    top:0;
+    left:85%;
+    height: 95%;
+    width:8%; 
+    background-color:#fafafa;
+    padding:10px 5px; 
+    color: #424242;
+    border:1px solid #ddd;
+    border-radius:10px;
 }

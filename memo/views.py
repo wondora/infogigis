@@ -10,9 +10,8 @@ def memo(request):
         if form.is_valid:
             form.save()
             data['form_is_valid'] = True
-            memos = Memo.objects.first()
-            memos = memos.__dict__
-            memos['_state'] = 1 # del memos['_state']  del에서 문법에러남.
+            memos = Memo.objects.all()[:1].values('created_date','title','content')
+            memos = list(memos)
             data['memos'] = memos
     # else:
     #     data['form_is_valid'] = False
