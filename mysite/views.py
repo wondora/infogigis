@@ -6,7 +6,7 @@ class LoginView(LoginView):
 
 	def get_context_data(self, **kwargs):
 		context = super().get_context_data(**kwargs) 
-		context['memos'] = Memo.objects.all()[:10]
+		context['memos'] = Memo.objects.all()[:5]
 		return context 
 
 

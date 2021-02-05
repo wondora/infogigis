@@ -176,8 +176,7 @@ $(function () {
                 url: btn.attr("data-url"),
                 type: 'get',            
                 dataType: 'json',            
-                success: function (data) {                    
-                    alert(data.message); 
+                success: function (data) {  
                     window.location.reload();                              
                 }
             });

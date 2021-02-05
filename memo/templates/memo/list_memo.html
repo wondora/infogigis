@@ -1,0 +1,7 @@
+{% for memo in post_list %}
+<div>
+    <p class="list1"><span>{{ memo['title'] }}</span></p>
+    <p class="list2"><span>{{ memo['created_date']|date:'Y.m.d' }}</span></p>
+    <p class="list1"><span>{{ memo['content']|linebreaks }}</span></p>
+</div>
+{% endfor %}

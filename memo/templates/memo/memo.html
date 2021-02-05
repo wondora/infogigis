@@ -7,22 +7,25 @@
     <span></span>
 </label>
 <div class="sidebar">
-    <div style="margin-top: 50px;text-align:center;">       
-        <form class="memo_form" action="{% url 'memo:memo' %}" method="post" style="position: relative;margin-bottom: 30px;">
+    <div style="margin-top: 50px;text-align:center;">
+        <div class="memo_show">
+            <span class="memo_show_sub" type="button" style="letter-spacing:2px;">MEMO</span>
+        </div>       
+        <form class="memo_form hide" action="{% url 'memo:memo' %}" method="post" style="position: relative;margin-bottom: 30px;">
         {% csrf_token %}
             <div>
-                <input type="text" name="title" required>            
+                <input type="text" name="title" placeholder="Enter Title" required>            
                 <br>
-                <textarea name="content" cols="30" rows="3" required></textarea>
+                <textarea name="content" cols="30" rows="3" placeholder="Enter Content" required></textarea>
             </div>
-            <button>submit</button>
-        </form>        
+            <button style="color:white;">submit</button>
+        </form>               
         <div id="memo_list">
             {% for memo in memos %}
-            <div>
-                <p class="list1"><span>{{ memo.title }}</span></p>
-                <p class="list2"><span>{{ memo.created_date|date:'Y.m.d' }}</span></p>
-                <p class="list1"><span>{{ memo.content|linebreaks }}</span></p>
+            <div class="memo{{ memo.id }}">
+                <p><span>{{ memo.title }}</span><button class='del_memo' data-url="{% url 'memo:del_memo' pk=memo.id %}">del</button></p>
+                <p><span>{{ memo.created_date|date:'Y.m.d' }}</span></p>
+                <p><span>{{ memo.content|linebreaksbr}}</span></p>
             </div>
             {% endfor %}
         </div>        
@@ -31,7 +34,7 @@
 
 <script>
 $(document).ready(function () {
-    let MemoForm = function () {
+   let MemoForm = function () {
         let form = $(this);  
         $.ajax({
         url: form.attr("action"),
@@ -41,18 +44,39 @@ $(document).ready(function () {
         success: function (data) {
             if (data.form_is_valid) {  
                 let htmlCode = '';
-                htmlCode += '<div>'
-                htmlCode += "<p>" +  data.memos['title'] + "</p>"
-                htmlCode += "<p>" +  data.memos['created_date'] + "</p>"
-                htmlCode += "<p>" +  data.memos['content'] + "</p>"
-                htmlCode += '</div>'
+                let del_id = data.memos[0]['id'];       
+                let url = "{% url 'memo:del_memo' pk=333 %}".replace(333, del_id);                             
+                htmlCode += '<div class="memo'+del_id+'">'
+                htmlCode += "<p>" +  data.memos[0]['title'] + "<button class='del_memo' data-url=" + url + ">del</button></p>"
+                htmlCode += "<p>" +  data.memos[0]['created_date'] + "</p>"
+                htmlCode += "<p>" +  data.memos[0]['content'] + "</p>"
+                htmlCode += '</div>' 
+
             $(".memo_form")[0].reset();
             $('#memo_list').prepend(htmlCode); 
             }                     
-        }
+        }        
         });
+        return false;
+    };
+
+    var deleteForm = function () {       
+            var btn = $(this);        
+            $.ajax({
+                url: btn.attr("data-url"),
+                type: 'get',            
+                dataType: 'json',            
+                success: function (data) {                      
+                    $('.memo'+data.pk).remove();                               
+                }
+            });
     };
 
     $(".memo_form").submit(MemoForm);
+    $(document).on('click', '.del_memo', deleteForm);
+    $(".memo_show").on('click', '.memo_show_sub', function() {       
+        $('.memo_form').toggleClass('show');
+        
+    })
 })
 </script>

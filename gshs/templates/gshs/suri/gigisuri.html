@@ -54,7 +54,7 @@
                 <h5 class="card-title" style="font-size: 17px; color: #bbb;">원인</h5>
                 <p class="card-text" style="padding-left: 20px;">{{ item.cause }}</p>
                 <h5 class="card-title" style="font-size: 17px; color: #bbb;">해결</h5>
-                <p class="card-text" style="padding-left: 20px;">{{ item.result }}</p>            
+                <p class="card-text" style="padding-left: 20px;">{{ item.result|linebreaksbr }}</p>            
                 {% if item.bigo %}  
                     <P class="repair-sub" style="border: 1px solid #bbb; padding: 10px;">{{ item.bigo }}</P>
                 {% endif %} 

@@ -5,7 +5,7 @@ input[id="menuicon"] {
 input[id="menuicon"] + label {
     display:block;
     width:30px;
-    height:20px;
+    height:25px;
     position:fixed;
     left:20px;
     top:calc(5% - 10px);
@@ -16,7 +16,7 @@ input[id="menuicon"] + label span {
     display:block;
     position:absolute;
     width:100%;
-    height:4px;
+    height:5px;
     border-radius:30px;
     background:#6d6d6d;
     transition:all .35s;
@@ -49,39 +49,96 @@ input[id="menuicon"]:checked + label span:nth-child(3) {
     transform:translateY(50%) rotate(-45deg);
 }
 /* 사이드바 메뉴 */
+p {
+    margin:0;
+    padding: 0;
+}
 div[class="sidebar"] {
     width:calc(40%);
     height:100%;
-    background:#fafafa;
+    background-color:#485861;
     position:fixed;
     top:0;
     left:calc(-40%);
     z-index:1;
-    transition:all .35s;    
+    transition:all .35s;  
+    color: white;  
+    overflow: scroll;
 }
 input[id="menuicon"]:checked + label + div {
     left:0;
 }
 
+.hide {
+    display: none;   
+}
+/* 
+@keyframes fade-out {
+    from {
+      opacity: 1;
+  
+    }
+    to {
+      opacity: 0;
+    }
+  } */
+
+.show {
+    /* animation: fade-in 1s; */
+    display: block;
+}
+
+.sidebar .memo_show {
+    border-bottom:1px solid #ccc;
+    width:80%;
+    display:inline-block;
+    padding:5px;
+    margin-bottom:50px;
+}
+
+/* @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  } */
+
+#memo_list button {
+    position: absolute;
+    background-color:#485861;
+    top:7%;
+    right:0;
+    font-size: 14px;
+    color: rgb(252, 107, 107);
+    border:1px solid #777;
+    padding:4px 7px;
+    border-radius: 5px;
+}
+
 #memo_list div {
     display:inline-block;
+    position: relative;
     width:80%; 
     margin: 20px; 
     padding: 10px;
-    border-bottom:1px solid #ddd;
+    border-bottom:1px solid #777;
 } 
-#memo_list p.list1 {
+#memo_list p {
     text-align: left; 
-    margin-left:10px; 
+    margin-left:5px; 
     margin-bottom: 2px;
     font-weight: normal; 
     font-size: 1.3rem;
 }
-#memo_list p.list2 {
+#memo_list p:nth-child(2) {
     text-align: left; 
-    margin-left:10px; 
+    margin-left:5px; 
+    margin-bottom: 30px;
     color: #b9b9b9;
-    font-weight:normal;
+    font-size: 14px;
+    font-weight:bold;
 } 
 
 .sidebar form > div {
@@ -91,28 +148,35 @@ input[id="menuicon"]:checked + label + div {
     margin-left:20px;
 }
 .sidebar form textarea {
-    background-color:#fafafa;width:90%; 
+    background-color:#485861;
+    color: white;
+    width:90%; 
     padding:10px;
     margin:10px 0 5px;
-    border:1px solid #ddd;
+    border:1px solid #777;
     border-radius:10px;
 }
 .sidebar form input {
-    background-color:#fafafa;
+    background-color:#485861;
+    color: white;
     width:90%;
     padding:10px;
-    border:1px solid #ddd;
+    border:1px solid #777;
     border-radius:10px;
+}
+
+.sidebar form input::placeholder, textarea::placeholder {
+    color: white;
 }
 .sidebar form button {
     position: absolute; 
-    top:0;
+    top:2%;
     left:85%;
-    height: 95%;
+    height: 90%;
     width:8%; 
-    background-color:#fafafa;
+    background-color:#485861;
     padding:10px 5px; 
     color: #424242;
-    border:1px solid #ddd;
+    border:1px solid #777;
     border-radius:10px;
 }

@@ -276,7 +276,6 @@ def export_excel(request):
 def jaego_infogigi(request, pk):
     Infogigi.objects.filter(id=pk).update(status=0)
     Jaego(infogigi_id=pk)
-    result.save()     
     return JsonResponse({'data':True})
 
 @login_required
