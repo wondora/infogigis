@@ -140,6 +140,26 @@ input[id="menuicon"]:checked + label + div {
     font-size: 14px;
     font-weight:bold;
 } 
+#memo_list .search_memo {
+    display:inline-block;
+    position: relative;
+    width:80%; 
+    margin: 20px; 
+    padding: 10px 20px;
+    border:1px solid#d27c7c;
+} 
+
+#memo_list .search_memo input {
+    position: absolute;
+    background-color:#485861;
+    top:7%;
+    right:0;
+    font-size: 14px;
+    color: rgb(252, 107, 107);
+    border:1px solid #777;
+    padding:4px 7px;
+    border-radius: 5px;
+}
 
 .sidebar form > div {
     display:inline-block;

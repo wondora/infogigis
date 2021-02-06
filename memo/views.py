@@ -29,3 +29,10 @@ def del_memo(request, pk):
     del_memo.delete()
     data['pk'] = pk
     return JsonResponse(data)
+
+def search_memo(request):
+    data = dict()
+    search = request.POST['search']
+    result = Memo.objects.filter(title__contains=search)
+    data['search'] = list(result.values())
+    return JsonResponse(data, safe=False)

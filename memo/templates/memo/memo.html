@@ -9,8 +9,18 @@
 <div class="sidebar">
     <div style="margin-top: 50px;text-align:center;">
         <div class="memo_show">
-            <span class="memo_show_sub" type="button" style="letter-spacing:2px;">MEMO</span>
-        </div>       
+            <span class="memo_show_sub" type="button" style="letter-spacing:2px;">[ MEMO ]</span>
+            <span class="memo_search_sub" type="button" style="letter-spacing:2px;margin-left:100px;">[ SEARCH ]</span>
+        </div> 
+        <form class="searchmemo_form hide" action="{% url 'memo:search_memo' %}" method="post" style="position: relative;margin-bottom: 30px;">
+        {% csrf_token %}  
+            <div>
+                <input type="text" name="search" placeholder="Enter Search" required>            
+                <br>
+            </div>
+            <button style="color:white;">submit</button>
+        </form> 
+
         <form class="memo_form hide" action="{% url 'memo:memo' %}" method="post" style="position: relative;margin-bottom: 30px;">
         {% csrf_token %}
             <div>
@@ -74,9 +84,40 @@ $(document).ready(function () {
 
     $(".memo_form").submit(MemoForm);
     $(document).on('click', '.del_memo', deleteForm);
-    $(".memo_show").on('click', '.memo_show_sub', function() {       
-        $('.memo_form').toggleClass('show');
-        
+
+    $(".memo_show").on('click', '.memo_show_sub', function() {   
+        $('.memo_form').toggle(350);    
     })
+    $(".memo_show").on('click', '.memo_search_sub', function() {     
+        $('.searchmemo_form').toggle(350);    
+    })
+
+    let SearchForm = function () {
+        let form = $(this);  
+        $.ajax({
+        url: form.attr("action"),
+        data: form.serialize(),
+        type: form.attr("method"),
+        dataType: 'json',        
+        success: function (data) {
+            if (data) {  
+                let htmlCode = '';    
+                let del_id = data.search[0]['id'];       
+                let url = "{% url 'memo:del_memo' pk=333 %}".replace(333, del_id);                           
+                htmlCode += '<h4>검색 결과</h4>'
+                htmlCode += '<div class="search_memo memo'+del_id+'">'
+                htmlCode += "<p>" +  data.search[0]['title'] + "<input type='button' class='del_memo' data-url=" + url + " value='del'></p>"
+                htmlCode += "<p>" +  data.search[0]['created_date'] + "</p>"
+                htmlCode += "<p>" +  data.search[0]['content'] + "</p>"
+                htmlCode += '</div>' 
+            
+            $('#memo_list').prepend(htmlCode); 
+            }                     
+        }        
+        });
+        return false;
+    };
+
+    $(".searchmemo_form").submit(SearchForm);
 })
 </script>
