@@ -8,7 +8,7 @@ input[id="menuicon"] + label {
     height:25px;
     position:fixed;
     left:20px;
-    top:calc(5% - 10px);
+    top:10px;
     transition:all .35s;
     cursor:pointer;
 }
