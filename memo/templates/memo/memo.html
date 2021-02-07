@@ -25,19 +25,17 @@
         {% csrf_token %}
             <div>
                 <input type="text" name="title" placeholder="Enter Title" required>            
-                <br>
-                <textarea name="content" cols="30" rows="3" placeholder="Enter Content" required></textarea>
+                <br>               
             </div>
             <button style="color:white;">submit</button>
         </form>               
         <div id="memo_list">
             {% for memo in memos %}
             <div class="memo{{ memo.id }}">
-                <p><span>{{ memo.title }}</span><button class='del_memo' data-url="{% url 'memo:del_memo' pk=memo.id %}">del</button></p>
-                <p><span>{{ memo.created_date|date:'Y.m.d' }}</span></p>
-                <p><span>{{ memo.content|linebreaksbr}}</span></p>
-            </div>
-            {% endfor %}
+                <p><span>{{ memo.created_date|date:'Y.m.d' }}</span><button class='del_memo' data-url="{% url 'memo:del_memo' pk=memo.id %}">del</button></p>
+                <p><span>{{ memo.title }}</span></p>
+            </div>  
+            {% endfor %}         
         </div>        
     </div>
 </div>
@@ -57,9 +55,8 @@ $(document).ready(function () {
                 let del_id = data.memos[0]['id'];       
                 let url = "{% url 'memo:del_memo' pk=333 %}".replace(333, del_id);                             
                 htmlCode += '<div class="memo'+del_id+'">'
-                htmlCode += "<p>" +  data.memos[0]['title'] + "<button class='del_memo' data-url=" + url + ">del</button></p>"
-                htmlCode += "<p>" +  data.memos[0]['created_date'] + "</p>"
-                htmlCode += "<p>" +  data.memos[0]['content'] + "</p>"
+                htmlCode += "<p>" +  data.memos[0]['created_date'] + "<input type='button' class='del_memo' data-url=" + url + " value='del'> </p>"
+                htmlCode += "<p>" +  data.memos[0]['title'] + "</p>"                
                 htmlCode += '</div>' 
 
             $(".memo_form")[0].reset();
@@ -101,16 +98,15 @@ $(document).ready(function () {
         dataType: 'json',        
         success: function (data) {
             if (data) {  
-                let htmlCode = '';    
-                let del_id = data.search[0]['id'];       
-                let url = "{% url 'memo:del_memo' pk=333 %}".replace(333, del_id);                           
-                htmlCode += '<h4>검색 결과</h4>'
-                htmlCode += '<div class="search_memo memo'+del_id+'">'
-                htmlCode += "<p>" +  data.search[0]['title'] + "<input type='button' class='del_memo' data-url=" + url + " value='del'></p>"
-                htmlCode += "<p>" +  data.search[0]['created_date'] + "</p>"
-                htmlCode += "<p>" +  data.search[0]['content'] + "</p>"
-                htmlCode += '</div>' 
-            
+                let htmlCode = ''; 
+                let url = ''; 
+                htmlCode += '<h4>검색 결과</h4>'                
+                for (i in data.search) {
+                    htmlCode += '<div class="search_memo memo'+data.search[i]['id']+'">'
+                    htmlCode += "<p>" + data.search[i]['created_date'] + "<input type='button' class='del_memo' data-url=" + "{% url 'memo:del_memo' pk=333 %}".replace(333, data.search[i]['id'] ) + " value='del'> </p>"
+                    htmlCode += "<p>" + data.search[i]['title'] + "</p>"  
+                    htmlCode += '</div>' 
+                }
             $('#memo_list').prepend(htmlCode); 
             }                     
         }        

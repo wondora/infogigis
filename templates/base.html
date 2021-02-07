@@ -39,12 +39,12 @@
                         <span>logout</span>
                     </a>
                 </li> 
-                {% endif %}  
+                {% endif %}                
                 {% comment %} <li>
                     <a href="#" class="js-memo" data-url="{% url 'memo:list_memo'%}">
                         <span>memo</span>
                     </a>
-                </li>  {% endcomment %}
+                </li> {% endcomment %}
                 {% comment %} <li>
                     <a href="{% url 'accountapp:update' pk=user.pk %}">
                         <span>change_pwd</span>
@@ -93,7 +93,7 @@
             </ul>            
         </div>
         <!--start aside -->
-        {% include 'memo/memo.html'%}
+        {% include 'memo/memo.html'%}        
         <!--end aside -->
         <section>
             <div class="content">

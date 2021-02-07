@@ -8,17 +8,21 @@
 <div class="modal-body">
     <div class="sidebar">
         <div style="margin-top: 50px;text-align:center;">       
-            <form class="memo_form" action="{% url 'memo:memo' %}" method="post" style="position: relative;margin-bottom: 30px;">
+            <form class="memo_form" action="{% url 'memo:list_memo' %}" method="post" style="position: relative;margin-bottom: 30px;">
             {% csrf_token %}
                 <div>
                     <input type="text" name="title" required>            
-                    <br>
-                    <textarea name="content" cols="30" rows="3" required></textarea>
+                    <br>                    
                 </div>
                 <button>submit</button>
             </form>        
             <div id="memo_list">
-              
+               {% for memo in memos %}
+                <div class="memo{{ memo.id }}">
+                    <p><span>{{ memo.created_date|date:'Y.m.d' }}</span><button class='del_memo' data-url="{% url 'memo:del_memo' pk=memo.id %}">del</button></p>
+                    <p><span>{{ memo.title }}</span></p>                     
+                </div>
+                {% endfor %}
             </div>        
         </div>
     </div>
