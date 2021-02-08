@@ -13,6 +13,14 @@ services:
     ports:
       - 80:80
 
+  django-redis:
+    image: django-redis-image:1
+    volumes:
+      - redis-data:/data
+      - redis-conf:/etc/redis
+    networks:
+      - network
+
   django-gunicorn:
     image: django-guni-image:3
     networks:
@@ -45,7 +53,9 @@ networks:
 volumes:
   static-volume:
   media-volume:
-  maria-database:  
+  maria-database:
+  redis-data:
+  redis-conf:
 
 secrets:
   DJANGO_SECRET_KEY:
