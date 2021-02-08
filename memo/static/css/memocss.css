@@ -1,90 +1,15 @@
-/* 햄버거 메뉴 */
-/* input[id="menuicon"] {
-    display:none;
-}
-input[id="menuicon"] + label {
-    display:block;
-    width:30px;
-    height:25px;
-    position:fixed;
-    left:20px;
-    top:10px;
-    transition:all .35s;
-    cursor:pointer;
-}
-input[id="menuicon"] + label span {
-    display:block;
-    position:absolute;
-    width:100%;
-    height:5px;
-    border-radius:30px;
-    background:#6d6d6d;
-    transition:all .35s;
-}
-input[id="menuicon"] + label span:nth-child(1) {
-    top:0;
-}
 
-input[id="menuicon"] + label span:nth-child(2) {
-    top:50%;
-    transform:translateY(-50%)
-}
-input[id="menuicon"] + label span:nth-child(3) {
-    bottom:0;
-}
- /* 체크시 햄버거 버튼 변화 
-input[id="menuicon"]:checked + label {
-    z-index:2;
-    left:calc(40%);
-}
-input[id="menuicon"]:checked + label span:nth-child(1) {
-    top:50%;
-    transform:translateY(-50%) rotate(45deg);
-}
-input[id="menuicon"]:checked + label span:nth-child(2) {
-    opacity:0;
-}
-input[id="menuicon"]:checked + label span:nth-child(3) {
-    bottom:50%;
-    transform:translateY(50%) rotate(-45deg);
-} */
 /* 사이드바 메뉴 */
 p {
     margin:0;
     padding: 0;
 }
-/* div[class="sidebar"] {
-    width:calc(40%);
-    height:100%;
-    background-color:#485861;
-    position:fixed;
-    top:0;
-    left:calc(-40%);
-    z-index:1;
-    transition:all .35s;  
-    color: white;  
-    overflow: scroll;
-} */
-/* input[id="menuicon"]:checked + label + div {
-    left:0;
-} */
 
 .hide {
     display: none;   
 }
-/* 
-@keyframes fade-out {
-    from {
-      opacity: 1;
-  
-    }
-    to {
-      opacity: 0;
-    }
-  } */
 
-.show {
-    /* animation: fade-in 1s; */
+.show {  
     display: block;
 }
 
@@ -95,15 +20,6 @@ p {
     padding:5px;
     margin-bottom:50px;
 }
-
-/* @keyframes fade-in {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  } */
 
 #memo_list button {
     position: absolute;
