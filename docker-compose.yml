@@ -18,8 +18,8 @@ services:
     networks:
       - network
     volumes:
-      - static-volume:/home/infogigi/staticfiles
-      - media-volume:/home/infogigi/media
+      - static-volume:/home/infogigis/staticfiles
+      - media-volume:/home/infogigis/media
     secrets:
       - MYSQL_PASSWORD
       - DJANGO_SECRET_KEY
