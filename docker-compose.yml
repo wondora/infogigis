@@ -19,7 +19,7 @@ services:
       - network
 
   django-gunicorn:
-    image: django-guni-image:2
+    image: django-guni-image:3
     networks:
       - network
     volumes:

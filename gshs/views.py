@@ -41,7 +41,7 @@ class InfogigiLV(ListView):
             gigi = Productgubun.objects.all()[:5]
             cache.set('gigis', gigi, 43200) 
 
-        context["productgubun"] =gigi 
+        context["productgubun"] = gigi 
         context["gigigubun"] = self.gigigubun 
         paginator = context['paginator']
         page_numbers_range = 7  # Display only 7 page numbers
