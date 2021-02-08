@@ -14,13 +14,9 @@ services:
       - 80:80
 
   django-redis:
-    image: redis 6.0
+    image: django-redis-image:1
     networks:
       - network
-    command: redis-server --port 6379
-    restart: always
-    expose:
-      - "6379"    
 
   django-gunicorn:
     image: django-guni-image:2

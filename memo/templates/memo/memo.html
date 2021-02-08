@@ -1,11 +1,14 @@
+{% extends 'base.html' %}
+
 {% load static %}
 
-<input type="checkbox" id="menuicon">
-<label for="menuicon">
-    <span></span>
-    <span></span>
-    <span></span>
-</label>
+{% block title %}Memo Page{% endblock %}
+{% block js %}
+    <script type="text/javascript" src="{% static 'memo/js/memo.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+
 <div class="sidebar">
     <div style="margin-top: 50px;text-align:center;">
         <div class="memo_show">
@@ -18,7 +21,7 @@
                 <input type="text" name="search" placeholder="Enter Search" required>            
                 <br>
             </div>
-            <button style="color:white;">submit</button>
+            <button>submit</button>
         </form> 
 
         <form class="memo_form hide" action="{% url 'memo:memo' %}" method="post" style="position: relative;margin-bottom: 30px;">
@@ -27,10 +30,10 @@
                 <input type="text" name="title" placeholder="Enter Title" required>            
                 <br>               
             </div>
-            <button style="color:white;">submit</button>
+            <button>submit</button>
         </form>               
         <div id="memo_list">
-            {% for memo in memos %}
+            {% for memo in object_list %}
             <div class="memo{{ memo.id }}">
                 <p><span>{{ memo.created_date|date:'Y.m.d' }}</span><button class='del_memo' data-url="{% url 'memo:del_memo' pk=memo.id %}">del</button></p>
                 <p><span>{{ memo.title }}</span></p>
@@ -40,80 +43,6 @@
     </div>
 </div>
 
-<script>
-$(document).ready(function () {
-   let MemoForm = function () {
-        let form = $(this);  
-        $.ajax({
-        url: form.attr("action"),
-        data: form.serialize(),
-        type: form.attr("method"),
-        dataType: 'json',        
-        success: function (data) {
-            if (data.form_is_valid) {  
-                let htmlCode = '';
-                let del_id = data.memos[0]['id'];       
-                let url = "{% url 'memo:del_memo' pk=333 %}".replace(333, del_id);                             
-                htmlCode += '<div class="memo'+del_id+'">'
-                htmlCode += "<p>" +  data.memos[0]['created_date'] + "<input type='button' class='del_memo' data-url=" + url + " value='del'> </p>"
-                htmlCode += "<p>" +  data.memos[0]['title'] + "</p>"                
-                htmlCode += '</div>' 
+{% include 'gshs/snippet/_pagination.html' with page_obj=page_obj page_range=page_range %}
 
-            $(".memo_form")[0].reset();
-            $('#memo_list').prepend(htmlCode); 
-            }                     
-        }        
-        });
-        return false;
-    };
-
-    var deleteForm = function () {       
-            var btn = $(this);        
-            $.ajax({
-                url: btn.attr("data-url"),
-                type: 'get',            
-                dataType: 'json',            
-                success: function (data) {                      
-                    $('.memo'+data.pk).remove();                               
-                }
-            });
-    };
-
-    $(".memo_form").submit(MemoForm);
-    $(document).on('click', '.del_memo', deleteForm);
-
-    $(".memo_show").on('click', '.memo_show_sub', function() {   
-        $('.memo_form').toggle(350);    
-    })
-    $(".memo_show").on('click', '.memo_search_sub', function() {     
-        $('.searchmemo_form').toggle(350);    
-    })
-
-    let SearchForm = function () {
-        let form = $(this);  
-        $.ajax({
-        url: form.attr("action"),
-        data: form.serialize(),
-        type: form.attr("method"),
-        dataType: 'json',        
-        success: function (data) {
-            if (data) {  
-                let htmlCode = ''; 
-                let url = ''; 
-                htmlCode += '<h4>검색 결과</h4>'                
-                for (i in data.search) {
-                    htmlCode += '<div class="search_memo memo'+data.search[i]['id']+'">'
-                    htmlCode += "<p>" + data.search[i]['created_date'] + "<input type='button' class='del_memo' data-url=" + "{% url 'memo:del_memo' pk=333 %}".replace(333, data.search[i]['id'] ) + " value='del'> </p>"
-                    htmlCode += "<p>" + data.search[i]['title'] + "</p>"  
-                    htmlCode += '</div>' 
-                }
-            $('#memo_list').prepend(htmlCode); 
-            }                     
-        }        
-        });
-        return false;
-    };
-
-    $(".searchmemo_form").submit(SearchForm);
-})
-</script>
+{% endblock content %}

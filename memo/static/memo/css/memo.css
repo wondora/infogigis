@@ -1,5 +1,5 @@
 /* 햄버거 메뉴 */
-input[id="menuicon"] {
+/* input[id="menuicon"] {
     display:none;
 }
 input[id="menuicon"] + label {
@@ -32,7 +32,7 @@ input[id="menuicon"] + label span:nth-child(2) {
 input[id="menuicon"] + label span:nth-child(3) {
     bottom:0;
 }
- /* 체크시 햄버거 버튼 변화 */
+ /* 체크시 햄버거 버튼 변화 
 input[id="menuicon"]:checked + label {
     z-index:2;
     left:calc(40%);
@@ -47,13 +47,13 @@ input[id="menuicon"]:checked + label span:nth-child(2) {
 input[id="menuicon"]:checked + label span:nth-child(3) {
     bottom:50%;
     transform:translateY(50%) rotate(-45deg);
-}
+} */
 /* 사이드바 메뉴 */
 p {
     margin:0;
     padding: 0;
 }
-div[class="sidebar"] {
+/* div[class="sidebar"] {
     width:calc(40%);
     height:100%;
     background-color:#485861;
@@ -64,10 +64,10 @@ div[class="sidebar"] {
     transition:all .35s;  
     color: white;  
     overflow: scroll;
-}
-input[id="menuicon"]:checked + label + div {
+} */
+/* input[id="menuicon"]:checked + label + div {
     left:0;
-}
+} */
 
 .hide {
     display: none;   
@@ -107,9 +107,9 @@ input[id="menuicon"]:checked + label + div {
 
 #memo_list button {
     position: absolute;
-    background-color:#485861;
+    background-color:#fafafa;
     top:7%;
-    right:0;
+    right:20px;
     font-size: 14px;
     color: rgb(252, 107, 107);
     border:1px solid #777;
@@ -121,7 +121,8 @@ input[id="menuicon"]:checked + label + div {
     display:inline-block;
     position: relative;
     width:80%;     
-    border-bottom:1px solid #777;
+    border:1px solid #777;
+    padding: 20px;
     margin-bottom:30px;   
 } 
 #memo_list p {
@@ -146,10 +147,10 @@ input[id="menuicon"]:checked + label + div {
 } 
 
 #memo_list input {
-position: absolute;
-    background-color:#485861;
+    position: absolute;
+    background-color:#fafafa;
     top:7%;
-    right:0;
+    right:20px;
     font-size: 14px;
     color: rgb(252, 107, 107);
     border:1px solid #777;
@@ -157,6 +158,9 @@ position: absolute;
     border-radius: 5px;
 }
 
+.sidebar .memo_show {
+    padding-bottom: 20px;
+}
 .sidebar form > div {
     display:inline-block;
     width:80%;
@@ -165,8 +169,8 @@ position: absolute;
 }
 
 .sidebar form input {
-    background-color:#485861;
-    color: white;
+    background-color:#fafafa;
+    color: #424242;
     width:90%;
     padding:10px;
     border:1px solid #777;
@@ -174,15 +178,15 @@ position: absolute;
 }
 
 .sidebar form input::placeholder, textarea::placeholder {
-    color: white;
+    color: #424242;
 }
 .sidebar form button {
     position: absolute; 
     top:8%;
-    left:85%;
+    right:10%;
     height: 90%;
-    width:8%; 
-    background-color:#485861;
+    width:5%; 
+    background-color:#fafafa;
     padding:10px 5px; 
     color: #424242;
     border:1px solid #777;

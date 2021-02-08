@@ -1,19 +1,5 @@
-FROM python:3.8.5
+FROM redis:6.0
 
-WORKDIR /home/
+EXPOSE 6379
 
-RUN echo "testing1233"
-
-RUN git clone https://github.com/wondora/infogigis.git 
-
-WORKDIR /home/infogigis
-
-RUN pip install -r requirements.txt
-
-RUN pip install gunicorn
-
-RUN pip install mysqlclient
-
-EXPOSE 8000
-
-CMD ["bash", "-c", "python manage.py collectstatic --noinput --settings=gshs.settings.deploy && python manage.py migrate --settings=gshs.settings.deploy && gunicorn mysite.wsgi --env DJANGO_SETTINGS_MODULE=gshs.settings.deploy --bind 0.0.0.0:8000"]
+CMD ["redis-server"]

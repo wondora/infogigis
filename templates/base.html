@@ -40,11 +40,11 @@
                     </a>
                 </li> 
                 {% endif %}                
-                {% comment %} <li>
-                    <a href="#" class="js-memo" data-url="{% url 'memo:list_memo'%}">
+                <li>
+                    <a href="{% url 'memo:list_memo'%}">
                         <span>memo</span>
                     </a>
-                </li> {% endcomment %}
+                </li>
                 {% comment %} <li>
                     <a href="{% url 'accountapp:update' pk=user.pk %}">
                         <span>change_pwd</span>
@@ -92,8 +92,7 @@
                 {% endif %}
             </ul>            
         </div>
-        <!--start aside -->
-        {% include 'memo/memo.html'%}        
+        <!--start aside -->            
         <!--end aside -->
         <section>
             <div class="content">

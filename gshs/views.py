@@ -35,8 +35,12 @@ class InfogigiLV(ListView):
         return queryset
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)        
-        gigi = Productgubun.objects.all()[:5]
+        context = super().get_context_data(**kwargs)  
+        gigi = cache.get('gigis')
+        if not gigi:
+            gigi = Productgubun.objects.all()[:5]
+            cache.set('gigis', gigi, 43200) 
+
         context["productgubun"] =gigi 
         context["gigigubun"] = self.gigigubun 
         paginator = context['paginator']
