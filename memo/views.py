@@ -5,15 +5,16 @@ from django.core.cache import cache
 from django.views.generic import ListView, UpdateView
 
 class ListLV(ListView): 
+    queryset = Memo.objects.all()
     template_name = 'memo/memo.html'     
     paginate_by = 7   
  
-    def get_queryset(self, **kwargs):
-        queryset = cache.get('memos')
-        if not queryset:
-            queryset = Memo.objects.all()
-            cache.set('memos', queryset)       
-        return queryset
+    # def get_queryset(self, **kwargs):
+    #     queryset = cache.get('memos')
+    #     if not queryset:
+    #         queryset = Memo.objects.all()
+    #         cache.set('memos', queryset)       
+    #     return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs) 
