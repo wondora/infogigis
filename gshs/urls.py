@@ -51,5 +51,7 @@ urlpatterns = [
     path('infogigi/bupum/search/', views.SearchbupumLV.as_view(), name='search_bupum'),
     path('infogigi/bupum/update/<int:pk>/', views.update_bupum, name='update_bupum'),
     path('infogigi/bupum/delete/<int:pk>/', views.delete_bupum, name='delete_bupum'),
+    # 위치
+    path('infogigi/place/list/<str:buseo_gubun>/', views.PlaceLV.as_view(), name='list_place'),
 ] 
   

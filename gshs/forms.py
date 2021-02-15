@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import inlineformset_factory
-from gshs.models import Infogigi, Productbuy, Repair, Jaego, Photo, Gigirental, People, Softwarerental, Softwarestock, Bupumchange
+from gshs.models import Infogigi, Productbuy, Repair, Jaego, Photo, Gigirental, People, Softwarerental, Softwarestock, Bupumchange, Productgubun
 from gshs.widgets import AutoCompleteWidget, DatePickerWidget
 from django.urls import reverse_lazy
 
@@ -8,6 +8,11 @@ PhotoInlineFormSet = inlineformset_factory(Repair, Photo,\
     fields=['image',], extra=3)
 
 class InfogigiForm(forms.ModelForm):  
+    def __init__(self, *args, **kwargs): 
+        super().__init__(*args, **kwargs) 
+        self.fields['productgubun'].queryset = Productgubun.objects.filter(table_name='infogigi')       
+
+
     class Meta:
         model = Infogigi
         fields = '__all__'  
@@ -27,7 +32,11 @@ class RepairForm(forms.ModelForm):
     #     self.fields['image'].widget.attrs.update({'class':'form-control-file'})
     #     self.fields['image'].multiple = True
 
-class ProductbuyForm(forms.ModelForm):    
+class ProductbuyForm(forms.ModelForm):  
+    def __init__(self, *args, **kwargs): 
+        super().__init__(*args, **kwargs) 
+        self.fields['productgubun'].queryset = Productgubun.objects.filter(table_name='productbuy')    
+
     class Meta:
         model = Productbuy
         fields = '__all__'

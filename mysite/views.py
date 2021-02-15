@@ -1,19 +1,11 @@
 from django.contrib.auth.views import LoginView
-from memo.models import Memo
-from django.core.cache import cache
-import json
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+
 
 class LoginView(LoginView):
 	template_name='accountapp/login.html'
 
-	def get_context_data(self, **kwargs):
-		context = super().get_context_data(**kwargs) 
-		memos =  cache.get('memos')
-		if not memos:
-			memos = Memo.objects.all()[:20]
-			cache.set('memos', memos)
-
-		context['memos'] = memos
-		return context 	
-			
-
+	def get(self, request, *args, **kwargs):
+			if self.request.user.is_authenticated:
+					return HttpResponseRedirect(reverse('gshs:infogigi_list', args=('all',)))

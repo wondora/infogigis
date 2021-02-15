@@ -30,6 +30,7 @@ class Infogigi(models.Model):
 class Place(models.Model):
     building = models.CharField(max_length=50, null=True, blank=True)
     room = models.CharField(max_length=50, default=0, null=False, blank=True)
+    buseo = models.BooleanField(default=True)
     bigo = models.CharField(max_length=100,blank=True, null=True)
 
     class Meta:
@@ -157,6 +158,7 @@ class Bupumchange(models.Model):
     # def __str__(self):
     #     return '{}'.format(self.productbuy)
 class Productgubun(models.Model):
+    table_name = models.CharField(max_length=30, default='infogigi')
     gubun_name = models.CharField(max_length=50)
 
     class Meta:
@@ -172,6 +174,7 @@ def file_size(value):
 
 class Photo(models.Model):
     suri = models.ForeignKey("gshs.Repair", on_delete=models.CASCADE, null=True, blank=True)
+    place = models.ForeignKey("gshs.Place", on_delete=models.CASCADE, null=True, blank=True)
     image = models.ImageField(validators=[file_size], upload_to = "images/%Y/%m", null=False, blank=True) 
 
     class Meta:

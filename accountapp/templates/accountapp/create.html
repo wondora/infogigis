@@ -3,15 +3,21 @@
 {% load bootstrap4 %} 
 
 {% block content %}
-<div class="text-center my-auto">
-    <div class="mb-4">
-        <h4>SignUp</h4>
+
+<div class="panel panel-default registration">
+    <div class="panel-heading">
+        로그인하기
     </div>
-    
-    <form action="{% url 'accountapp:create' %}" method="post">
+    <div class="panel-body">
+       <form action="{% url 'accountapp:create' %}" method="post">
         {% csrf_token %}
         {% bootstrap_form form %}
-        <input type="submit" class="btn btn-primary" />
-    </form>
+        <input type="submit" class="btn btn-primary" />   
+        <div class="form-actions">
+            <button class="btn btn-secondary btn-large" type="submit">로그인하기</button>
+        </div>
+        </form>
+    </div>
 </div>
+
 {% endblock %}

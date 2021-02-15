@@ -37,7 +37,7 @@ class InfogigiLV(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)  
               
-        gigi = Productgubun.objects.all()[:5]
+        gigi = Productgubun.objects.filter(table_name='infogigi')
         context["productgubun"] =gigi 
         context["gigigubun"] = self.gigigubun 
         paginator = context['paginator']
@@ -70,7 +70,7 @@ class SearchinfoLV(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        gigi = Productgubun.objects.all()[:4]
+        gigi = Productgubun.objects.filter(table_name='infogigi')
         context["productgubun"] =gigi
         context["gigigubun"] = 'all'
         paginator = context['paginator']
@@ -98,7 +98,7 @@ def save_infogigi_form(request, form, template_name):
     if request.method == 'POST':
         if form.is_valid():
             form.save()  
-            if form.instance.productgubun.gubun_name == 'SOFTWARE':
+            if form.instance.productgubun.table_name == 'productbuy':
                 Softwarestock.objects.create(model = form.instance.model, count = form.instance.count, remain = form.instance.count, price = form.instance.price)
             data['form_is_valid'] = True
         else:
@@ -768,3 +768,13 @@ class SearchbupumLV(ListView):
     
         return context
 
+class PlaceLV(ListView): 
+    template_name = 'gshs/place/list_place.html'  
+
+    def get_queryset(self, **kwargs):
+        self.buseo_gubun = self.kwargs['buseo_gubun']
+        if self.buseo_gubun == 'all':
+            queryset = Place.objects.filter
+        else:
+             queryset = Place.objects.filter(buseo=True)
+        return queryset

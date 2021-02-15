@@ -28,6 +28,11 @@ class RepairAdmin(ImportExportModelAdmin):
     list_display = ('created_date', 'infogigi', 'cause', 'result', 'price', 'bigo')    
     inlines = (PhotoInline,)
 
+@admin.register(Place)
+class PlaceAdmin(ImportExportModelAdmin):
+    list_display = ('building', 'room', 'buseo', 'bigo')   
+    inlines = (PhotoInline,)
+
 @admin.register(Productbuy)
 class ProductbuyAdmin(admin.ModelAdmin):
     list_display = ('productgubun','vendor', 'maker', 'model', 'count', 'price', 'bigo')
@@ -42,10 +47,6 @@ class VendorAdmin(admin.ModelAdmin):
 @admin.register(Bupumchange)  
 class BupumchangeAdmin(admin.ModelAdmin):
     list_display = ('infogigi', 'productbuy', 'count', 'price', 'bigo')
-
-@admin.register(Place)
-class PlaceAdmin(ImportExportModelAdmin):
-    list_display = ('building', 'room')
 
 @admin.register(People)
 class PeopleAdmin(ImportExportModelAdmin):
