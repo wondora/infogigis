@@ -30,7 +30,14 @@ class Infogigi(models.Model):
 class Place(models.Model):
     building = models.CharField(max_length=50, null=True, blank=True)
     room = models.CharField(max_length=50, default=0, null=False, blank=True)
-    buseo = models.BooleanField(default=True)
+    buseo_choices = (
+        ('부서', '부서'),
+        ('강의실', '강의실'),
+        ('강당', '강당'),
+        ('실험실', '실험실'),
+        ('기타', '기타'),
+    )
+    buseo = models.CharField(max_length=30, choices=buseo_choices)
     bigo = models.CharField(max_length=100,blank=True, null=True)
 
     class Meta:

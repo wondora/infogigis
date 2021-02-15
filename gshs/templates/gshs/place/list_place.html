@@ -1,230 +1,59 @@
-        <div class="container mb-6">
-          <nav class="navbar navbar-expand-md pl-2" >
-            
-            <div class="navbar-header" >
-             <!-- <img src="http://wondora.zz.am/img/dog-solid.svg" style="height:27px;margin-right:10px;margin-bottom:10px;"> -->
-             <a class="navbar-brand" href="http://wondora.zz.am/home"><img src="http://wondora.zz.am/img/logo1.png"></a>
-             <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navCollapse">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-          </div>
-          <div class="collapse navbar-collapse" id="navCollapse">
-            <!-- Left Side Of Navbar -->
-            <ul class="nav navbar-nav ml-auto" style="font-coler: #f7f7f7;">
-              <li class="nav-item">
-                <a class="nav-link" href="/home">홈</a>
-              </li>
-              <li class="nav-item dropdown">
-                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown">정보기자재(요청/구매 가능)<span class="caret"></span></a>
-                <div class="dropdown-menu dropdown-menu-right text-center">
-                  <a class="dropdown-item" href="/infogigi/printer">복합기/프린터</a>
-                  <a class="dropdown-item" href="/infogigi/notebook">노트북</a>
-                  <a class="dropdown-item" href="/infogigi/projector">프로젝터</a>
-                  <a class="dropdown-item" href="/infogigi/desktop">데스크탑</a>
-                  <a class="dropdown-item" href="/infogigi/tv">TV</a>
-                </div>
-              </li>
-              <li class="nav-item dropdown">
-                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown">공간<span class="caret"></span></a>
-                <div class="dropdown-menu dropdown-menu-right text-center">
-                  <a class="dropdown-item" href=http://wondora.zz.am/buseo?buseo=%EA%B5%90%EC%9C%A1%EC%A0%95%EB%B3%B4%EB%B6%80&amp;gubun=buseo_list>부서별 공간</a>
-                  <a class="dropdown-item" href=http://wondora.zz.am/buseo?buseo=%EA%B0%95%EC%9D%98%EC%8B%A4629%ED%98%B8&amp;gubun=lecture_room>강의(당)&실험실 공간</a>
-                  <a class="dropdown-item" href=http://wondora.zz.am/buseo?buseo=%EC%9C%84%ED%81%B4%EB%9E%98%EC%8A%A4&amp;gubun=other_place>그외의 공간</a>
-                </div>
-              </li>
-              <li class="nav-item dropdown">
-                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown">기타<span class="caret"></span></a>
-                <div class="dropdown-menu dropdown-menu-right text-center">
-                  <a class="dropdown-item" href="/stocks">재고 현황</a>
-                  <a class="dropdown-item" href="/rentals">대여 및 반납</a>
-                </div>
-              </li>
-           </ul>
-            <!-- Right Side Of Navbar -->
-            <ul class="nav navbar-nav ml-5">
-              <!-- Authentication Links -->
-                            <li class="nav-item">
-                <a class="nav-link bg-dark"  style="padding:10px;margin-left:20px;color: #fff;" href="http://wondora.zz.am/login">Login</a>
-              </li>
-            </ul>
-        </div>
-      </nav>
-      <hr />
-      
-<div style="display: none;">
- 
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<div style="display:flex;width:100%;justify-content: center;">
+  <div class="place-left" style="width:20%;padding:0 30px 30px;margin-left:10%;">
+    <div style="background-color:#efefef; border:1px solid #ccc;text-align:center; padding:50px 30px;font-weight:bold; letter-spacing:3px;"><h2>{{ gubun }}</h2></div>
+    <ul>
+      {% for item in object_list %}
+      <li><a herf="{% url 'gshs:list_place' item.room %}">{{item.room}}</a></li> 
+      {% endfor %}    
+    </ul>
   </div>
 
-  <div class="col-md-2">
-    <div class="list-group text-center ml-2" style="margin-right:30px">
-      <span class="list-group-item list-group-item bg-dark" style="font-weight: 500;font-size:1.1em;color: #fff;text-decoration: none;">부서별 공간</span>
-      <a class="list-group-item list-group-item-action" href=http://wondora.zz.am/buseo?buseo=%EA%B5%90%EC%9C%A1%EC%A0%95%EB%B3%B4%EB%B6%80&amp;year=2021&amp;gubun=buseo_list>교육정보부</a>
-      <a class="list-group-item list-group-item-action" href=http://wondora.zz.am/buseo?buseo=%EA%B3%BC%ED%95%99%EA%B5%90%EC%9C%A1%EB%B6%80&amp;year=2021&amp;gubun=buseo_list>과학교육부</a>
-      <a class="list-group-item list-group-item-action" href=http://wondora.zz.am/buseo?buseo=%EA%B5%90%EB%AC%B4%EA%B8%B0%ED%9A%8D%EB%B6%80&amp;year=2021&amp;gubun=buseo_list>교무기획부</a>
-      <a class="list-group-item list-group-item-action" href=http://wondora.zz.am/buseo?buseo=%EA%B5%90%EC%9C%A1%EA%B3%BC%EC%A0%95%EB%B6%80&amp;year=2021&amp;gubun=buseo_list>교육과정부</a>
-      <a class="list-group-item list-group-item-action" href=http://wondora.zz.am/buseo?buseo=%EC%83%9D%ED%99%9C%EA%B4%80%EB%B6%80&amp;year=2021&amp;gubun=buseo_list>생활관부</a>
-      <a class="list-group-item list-group-item-action" href=http://wondora.zz.am/buseo?buseo=%EC%98%81%EC%9E%AC%EC%84%A0%EB%B0%9C%EB%B6%80&amp;year=2021&amp;gubun=buseo_list>영재선발부</a>
-      <a class="list-group-item list-group-item-action" href=http://wondora.zz.am/buseo?buseo=%ED%95%99%EC%83%9D%EC%9E%90%EC%B9%98%EB%B6%80&amp;year=2021&amp;gubun=buseo_list>학생자치부</a>
-      <a class="list-group-item list-group-item-action" href=http://wondora.zz.am/buseo?buseo=%EA%B5%AD%EC%A0%9C%EA%B5%90%EB%A5%98%EB%B6%80&amp;year=2021&amp;gubun=buseo_list>국제교류부</a>
-      <a class="list-group-item list-group-item-action" href=http://wondora.zz.am/buseo?buseo=1%ED%95%99%EB%85%84%EB%B6%80&amp;year=2021&amp;gubun=buseo_list>1학년부</a>
-      <a class="list-group-item list-group-item-action" href=http://wondora.zz.am/buseo?buseo=2%ED%95%99%EB%85%84%EB%B6%80&amp;year=2021&amp;gubun=buseo_list>2학년부</a>
-      <a class="list-group-item list-group-item-action" href=http://wondora.zz.am/buseo?buseo=3%ED%95%99%EB%85%84%EB%B6%80&amp;year=2021&amp;gubun=buseo_list>3학년부</a>
-      <a class="list-group-item list-group-item-action" href=http://wondora.zz.am/buseo?buseo=%EC%9D%B8%EB%AC%B8%EC%98%88%EC%B2%B4%EB%8A%A5%EB%B6%80&amp;year=2021&amp;gubun=buseo_list>인문예체능부</a>
-      <a class="list-group-item list-group-item-action" href=http://wondora.zz.am/buseo?buseo=%EA%B3%BC%ED%95%99%EC%B0%BD%EC%9D%98%EB%B6%80&amp;year=2021&amp;gubun=buseo_list>과학창의부</a>
-      <a class="list-group-item list-group-item-action" href=http://wondora.zz.am/buseo?buseo=%EA%B3%BC%ED%95%99%EC%97%B0%EA%B5%AC%EB%B6%80&amp;year=2021&amp;gubun=buseo_list>과학연구부</a>
-      <a class="list-group-item list-group-item-action" href=http://wondora.zz.am/buseo?buseo=%EA%B5%90%EC%9C%A1%ED%96%89%EC%A0%95%EC%8B%A4%28%EB%B3%B8%EA%B4%80%29&amp;year=2021&amp;gubun=buseo_list>교육행정실(본관)</a>
-      <a class="list-group-item list-group-item-action" href=http://wondora.zz.am/buseo?buseo=%EA%B5%90%EC%9C%A1%ED%96%89%EC%A0%95%EC%8B%A4%28SRC%29&amp;year=2021&amp;gubun=buseo_list>교육행정실(SRC)</a>
+  <div class="place-right" style="width:80%;padding:20px;margin-left: 20px;margin-right:10%;">
+    <div style="margin-bottom:20px;">
+      <h1>그림 들어갈 자리</h1>    
     </div>
+    <div style="margin-bottom:20px;">
+      <table class="custom-table" id="infogigi-table">
+        <thead style="font-size: 14px;">
+            <tr>
+              <th>구분</th>
+              <th>구매일</th> 
+              <th>성명</th>                        
+              <th>위치</th>
+              <th>회사명</th>
+              <th>모델명</th>                             
+              <th>Ip</th>                
+            </tr>
+        </thead>
+        <tbody>
+            {% include './partial-place-gigilist.html' %}
+        </tbody>
+      </table>   
+    </div>
+    <div style="margin-bottom:20px;">
+      <h1>복합기</h1>   
+    </div>
+    <div style="margin-bottom:20px;">
+      <h1>수리</h1>   
+    </div>
+    <div style="margin-bottom:20px;">
+      <h1>교체</h1>   
+    </div>     
   </div>
-  <div class="col-md-10">
-    <div class="row mt-1">
-      <div class="col-md-2 pb-3" style="border-bottom: 1px solid #efefef">
-          <span id= "home_buseo" style="font-size:1.3em;border-left: 3px solid #f6993f;padding-left:7px;font-weight:bold;">교육정보부</span>
-      </div>
-            <div class="col-md-4" style="padding-top: 3px;">
-         <select id="year_gubun" style="font-weight:bold;padding: 0 12px;height: 25px; margin: 0 auto;" class="form-control" onchange="location.href=this.value;">
-           <option value=http://wondora.zz.am/buseo?buseo=%EA%B5%90%EC%9C%A1%EC%A0%95%EB%B3%B4%EB%B6%80&amp;year=2019 selected>2019 년도</option>
-           <option value=http://wondora.zz.am/buseo?buseo=%EA%B5%90%EC%9C%A1%EC%A0%95%EB%B3%B4%EB%B6%80&amp;year=2020>2020 년도</option>
-           <option value=http://wondora.zz.am/buseo?buseo=%EA%B5%90%EC%9C%A1%EC%A0%95%EB%B3%B4%EB%B6%80&amp;year=2021>2021 년도</option>
-           <option value=http://wondora.zz.am/buseo?buseo=%EA%B5%90%EC%9C%A1%EC%A0%95%EB%B3%B4%EB%B6%80&amp;year=2022>2022 년도</option>
-           <option value=http://wondora.zz.am/buseo?buseo=%EA%B5%90%EC%9C%A1%EC%A0%95%EB%B3%B4%EB%B6%80&amp;year=2023>2023 년도</option>
-           <option value=http://wondora.zz.am/buseo?buseo=%EA%B5%90%EC%9C%A1%EC%A0%95%EB%B3%B4%EB%B6%80&amp;year=2024>2024 년도</option>
-         </select>
-       </div>
-    </div>
+</div>
+  
 
-    <div class="row mt-2">
-        <div class="col-md-10 offset-md-2">
-          <div class="fotorama" data-fit="scale" data-allowfullscreen="true" data-nav="thumbs"  data-width="800">
-                            <img src=http://wondora.zz.am/storage/photos/choi20190917_174806_HDR.jpg />
-                            <img src=http://wondora.zz.am/storage/photos/20190927_150616_HDR.jpg />
-                            <img src=http://wondora.zz.am/storage/photos/choi20190917_174757.jpg />
-                        </div>
-                  </div>
-    </div>
-    <div class="row mt-6">
-      <div class="col-md-12 my-auto">
-         <span class="bd-callout2" style="font-size:1rem;font-weight:bold;">부서원</span>
-      </div>
-      <div class="col-md-12 mt-2">
-        <table class="table text-center">
-            <thead style="background: #efefef;">
-              <tr>
-                <th>구매일</th>
-                <th>성명</th>
-                <th>설치장소</th>
-                <th>제조사</th>
-                <th>모델명</th>
-                <th>IP</th>
-                <th>이동</th>
-                <th>비고</th>
-              </tr>
-            </thead>
-            <tbody>
-                   <tr>
-                    <td>2016-03-25</td>
-                    <td>정종광</td>
-                    <td>SRC | 교육정보부 | 727호</td>
-                    <td>삼성</td>
-                    <td>NT910S3K-K51G</td>
-                    <td>10.112.174.116</td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                                                                    <tr>
-                    <td>2016-03-27</td>
-                    <td>서울</td>
-                    <td>SRC | 교육정보부 | 727호</td>
-                    <td>삼성</td>
-                    <td>NT910S3K-K51G</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                                                                    <tr>
-                    <td>2016-06-16</td>
-                    <td>박기현</td>
-                    <td>SRC | 교육정보부 | 727호</td>
-                    <td>삼성</td>
-                    <td>NT910S5K-K51G</td>
-                    <td>10.112.174.37</td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                                                                    <tr>
-                    <td>2015-02-01</td>
-                    <td>최창원</td>
-                    <td>SRC | 교육정보부 | 727호</td>
-                    <td>주연테크</td>
-                    <td>JY-환-IA47H-034</td>
-                    <td>10.112.174.134</td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                                                                    <tr>
-                    <td>2016-03-27</td>
-                    <td>최창원</td>
-                    <td>SRC | 교육정보부 | 727호</td>
-                    <td>삼성</td>
-                    <td>NT910S3K-K51G</td>
-                    <td>10.112.172.240</td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                                                                    <tr>
-                    <td>2016-02-05</td>
-                    <td>정덕교</td>
-                    <td>SRC | 교육정보부 | 727호</td>
-                    <td>APPLE</td>
-                    <td>iMAC(27) Retina 5k</td>
-                    <td>10.112.174.113</td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                                                </tbody>
-            </table>
+<div class="modal fade" id="{{ modal_gubun }}">
+    <div class="modal-dialog">
+        <div class="modal-content">
         </div>
-      </div>
-      <div class="row mt-5 mb-6">
-        <div class="col-md-12">
-           <span class="bd-callout2" style="font-size:1rem;font-weight:bold;">복합기</span>
-         </div>
-          <div class="col-md-12 mt-2">
-            <table class="table text-center">
-                <thead style="background: #efefef;">
-                  <tr>
-                    <th>구매일</th>
-                    <th>설치장소</th>
-                    <th>제조사</th>
-                    <th>모델명</th>
-                    <th>IP</th>
-                    <th>Color</th>
-                    <th>이동</th>
-                    <th>비고</th>
-                  </tr>
-                </thead>
-                <tbody>
-                                                            <tr>
-                        <td>2013-02-01</td>
-                        <td>SRC | 교육정보부 | 727호</td>
-                        <td>후지제록스</td>
-                        <td>DP-C3055</td>
-                        <td>10.112.173.72</td>
-                        <td>컬러</td>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                                                                                <tr>
-                        <td>2013-10-01</td>
-                        <td>SRC | 교육정보부 | 727호</td>
-                        <td>교세라</td>
-                        <td>FS-1030MFP</td>
-                        <td>10.112.173.1</td>
-                        <td>흑백</td>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                                                                                                                                                                                                                                                                                          </tbody>
-              </table>
-          </div>
-      </div>
+    </div>
+</div>
+
+{% endblock content %}

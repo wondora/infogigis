@@ -44,12 +44,12 @@
             </div>
             
             <div class="card-body">
-                <div class="fotorama" data-fit="cover" data-allowfullscreen="true" data-nav="thumbs" data-width="300">
-                {% if item.photo_set.all %}            
-                    {% for photo in item.photo_set.all %}
-                        <a href="{{ photo.image.url }}"><img src={{ photo.image.url }}></a>
-                    {% endfor %}            
-                {% endif %}  
+                <div class="fotorama" data-fit="cover" data-allowfullscreen="true" data-nav="thumbs" data-width="100%">
+                    {% if item.photo_set.all %}            
+                        {% for photo in item.photo_set.all %}
+                            <a href="{{ photo.image.url }}"><img src={{ photo.image.url }}></a>
+                        {% endfor %}            
+                    {% endif %}  
                 </div>
                 <h5 class="card-title" style="font-size: 15px; color: #bbb; margin-bottom:0.2rem;">원인</h5>
                 <p class="card-text" style="font-size: 15px;padding: 5px 10px 10px">{{ item.cause }}</p>

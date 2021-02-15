@@ -20,8 +20,6 @@ $(function () {
         location.href='/gshs/infogigi/gigi/' + $('select.gigigubun').attr('data-gigi');
     });
 
-    $('.Gallery a').simpleLightbox();  
-
 /* Functions */
     var loadForm = function () {
         var btn = $(this);

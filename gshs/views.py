@@ -772,9 +772,13 @@ class PlaceLV(ListView):
     template_name = 'gshs/place/list_place.html'  
 
     def get_queryset(self, **kwargs):
-        self.buseo_gubun = self.kwargs['buseo_gubun']
-        if self.buseo_gubun == 'all':
-            queryset = Place.objects.filter
-        else:
-             queryset = Place.objects.filter(buseo=True)
+        self.place_gubun = self.kwargs['place_gubun']
+        self.place_name = Place.objects.get(room=self.place_gubun)
+        queryset = Place.objects.filter(buseo=self.place_name.buseo)   
         return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['gubun'] = self.place_name.buseo
+        context['place_list'] = self.place_name.infogigi_set.all()
+        return context
