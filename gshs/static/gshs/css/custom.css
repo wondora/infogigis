@@ -103,6 +103,37 @@ footer { width: 100% ; height: 150px; margin-top: 30px;}
     padding: 40px 0 10px;
     border-bottom: 1px solid #efefef;
 }
+.place-table {
+    border-collapse: collapse;
+    margin: 20px 0;    
+    width: 100%;
+    min-width: 400px;
+    text-align: center;
+    line-height: 1.8;
+}
+
+.place-table thead tr {
+    border-top: 1px solid #e44444;    
+    border-bottom: 1px solid #ddd;
+}
+
+.place-table th,
+.place-table td {
+    padding: 10px 12px; 
+    font-weight: normal;  
+    font-size: 0.9rem; 
+}
+.place-table tbody tr {
+    border-bottom: 1px solid #ddd;
+    font-size: 0.9rem;
+}
+.content .place-right .bd-callout2 {
+    height: 1rem;
+    padding: 0.2rem 1rem;
+    border: 1px solid white;
+    border-left-width: .2rem;
+    border-left-color: #4dc0b5;
+}
 
 .logo{text-align: center; margin-top: 50px;}    
 

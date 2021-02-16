@@ -48,8 +48,7 @@ class Place(models.Model):
         return '({}) {}'.format(self.building, self.room)
 
 class People(models.Model):
-    name = models.CharField(u'성명', max_length=100, null=True, blank=True)
-    place = models.ForeignKey("gshs.Place", on_delete=models.CASCADE, verbose_name='부서명', null=True, blank=True)
+    name = models.CharField(u'성명', max_length=100, null=True, blank=True)    
     phone_number = models.CharField(u'핸드폰', max_length=20, blank=True, null=True)
     tel_number = models.CharField(u'내선', max_length=5, blank=True, null=True)
     status = models.BooleanField('재직', default=True)
@@ -153,7 +152,7 @@ class Vendor(models.Model):
 class Bupumchange(models.Model):
     created_date = models.DateField(auto_now_add=True)
     infogigi = models.ForeignKey("gshs.Infogigi", on_delete=models.SET_NULL, null=True, blank=True)
-    productbuy = models.ForeignKey("gshs.Productbuy", on_delete=models.SET_NULL, null=True, limit_choices_to = {'productgubun': 8})
+    productbuy = models.ForeignKey("gshs.Productbuy", on_delete=models.SET_NULL, null=True)
     count = models.PositiveSmallIntegerField(default=1, null=False, blank=True)
     price = models.PositiveIntegerField(default=0, null=False, blank=True)
     bigo = models.CharField(max_length=100,blank=True, null=True)

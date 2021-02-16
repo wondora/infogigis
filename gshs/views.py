@@ -1,4 +1,5 @@
 from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import render
 from gshs.models import *
 from django.views.generic import ListView, CreateView, UpdateView
 from django.db.models import Q
@@ -203,7 +204,7 @@ def bupum_infogigi(request):
             form.save(commit=False)
             infogigi_no = request.POST.get('bupum_number')
             info = Infogigi.objects.get(pk=infogigi_no)
-            form.infogigi = info
+            form.instance.infogigi = info
             form.save()            
             data['form_is_valid'] = True     
     else:
@@ -341,7 +342,12 @@ class RepairLV(ListView):
         context['page_range'] = page_range
 
         context['modal_gubun'] = 'modal-suri'
-        return context     
+        return context   
+
+def repairpk_list(request, pk):    
+    suri_list = Repair.objects.filter(id=pk).select_related('infogigi') 
+    print(suri_list)
+    return render(request, 'gshs/suri/gigisuri.html', {'object_list':suri_list})
 
 class SearchRepairLV(ListView):    
     template_name = 'gshs/suri/gigisuri.html'  
@@ -553,7 +559,7 @@ def productgubun_select(request):
     return JsonResponse(data, json_dumps_params = {'ensure_ascii': False})
 
 class PeopleLV(ListView):
-    queryset = People.objects.filter(status=True).select_related('place')
+    queryset = People.objects.filter(status=True)
     template_name = 'gshs/people/people.html'
     form_class = PeopleForm
     paginate_by = 10
@@ -583,7 +589,7 @@ class SearchpeopleLV(ListView):
 
     def get_queryset(self):
         word = self.request.GET.get('word')
-        post_list = People.objects.select_related('place').filter(Q(name__icontains=word)|Q(place__room__icontains=word))
+        post_list = People.objects.filter(Q(name__icontains=word)|Q(place__room__icontains=word))
         return post_list
 
     def get_context_data(self, **kwargs):
@@ -780,5 +786,20 @@ class PlaceLV(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['gubun'] = self.place_name.buseo
-        context['place_list'] = self.place_name.infogigi_set.all()
+        self.place_list = self.place_name.infogigi_set.all().select_related('productgubun','people','place')
+        context['place_gigi_list'] = self.place_name.infogigi_set.filter(productgubun__gubun_name='PRINTER').select_related('productgubun','people','place')         
+        context['place_people_list'] = self.place_name.infogigi_set.filter(Q(productgubun__gubun_name='NOTEBOOK') | Q(productgubun__gubun_name='DESKTOP')).select_related('productgubun','people','place')   
+        suri_data = [] 
+        for i in range(len(self.place_list)):
+            
+            suri_data.append(self.place_list[i].repair_set.all().select_related('infogigi'))
+        context['place_suri_list'] = suri_data 
+        print(context['place_suri_list'])
+
+        bupum_data = [] 
+        for i in range(len(self.place_list)):
+            
+            suri_data.append(self.place_list[i].bupumchange_set.all().select_related('infogigi'))
+        context['place_bupum_list'] = bupum_data
+        print(context['place_bupum_list'])
         return context

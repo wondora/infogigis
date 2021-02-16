@@ -1,0 +1,10 @@
+{% for item in place_people_list %}
+    <tr>  
+        <td>{{ item.productgubun }}</td>      
+        <td>{{ item.buy_date|date:'Y.m.d'}}</td>
+        <td>{{ item.people }}</td>
+        <td>{{ item.maker }}</td>
+        <td>{{ item.model }}</td>  
+        <td>{{ item.ip }}</td>    
+    </tr> 
+{% endfor %}

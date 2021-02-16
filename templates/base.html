@@ -75,6 +75,12 @@
                         <li><a href="{% url 'gshs:softwarerental_list' %}">soft rental</a></li>                                                
                     </ul> 
                 </li>
+                <li>  
+                    <a href="#">location</a>
+                    <ul>
+                        <li><a href="{% url 'gshs:list_place' place_gubun='교육정보부' %}">buseo</a></li>                                                                      
+                    </ul> 
+                </li>
                 <li><a href="{% url 'gshs:people_list' %}">people</a></li> 
                 {% if request.user.is_authenticated %}               
                 <li>

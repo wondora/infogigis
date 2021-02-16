@@ -12,6 +12,7 @@ urlpatterns = [
     path('infogigi/export-excel/', views.export_excel, name='export_excel'),
     #수리
     path('infogigi/suri/list/', views.RepairLV.as_view(), name='suri_list'),
+    path('infogigi/suri/list/<int:pk>/', views.repairpk_list, name='suri_list_pk'),
     path('infogigi/suri/', views.suri_infogigi, name='suri_infogigi'),    
     path('infogigi/suri/search', views.SearchRepairLV.as_view(), name='search_suri'),    
     path('infogigi/suri/<int:pk>/', views.RepairPhotoUV.as_view(), name='suri_update'),

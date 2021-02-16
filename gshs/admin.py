@@ -50,7 +50,7 @@ class BupumchangeAdmin(admin.ModelAdmin):
 
 @admin.register(People)
 class PeopleAdmin(ImportExportModelAdmin):
-    list_display = ('name', 'place', 'tel_number', 'status', 'bigo')
+    list_display = ('name', 'tel_number', 'status', 'bigo')
 
 
 @admin.register(Productgubun)

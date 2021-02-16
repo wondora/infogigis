@@ -46,7 +46,11 @@ class JaegoForm(forms.ModelForm):
         model = Jaego
         fields = '__all__'
 
-class BupumchangeForm(forms.ModelForm):    
+class BupumchangeForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs): 
+        super().__init__(*args, **kwargs) 
+        self.fields['productbuy'].queryset = Productbuy.objects.filter(productgubun__table_name='bupum').select_related('productgubun')  
+
     class Meta:
         model = Bupumchange
         fields = ['productbuy','count','price','bigo']
