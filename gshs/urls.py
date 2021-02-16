@@ -13,7 +13,8 @@ urlpatterns = [
     #수리
     path('infogigi/suri/list/', views.RepairLV.as_view(), name='suri_list'),
     path('infogigi/suri/list/<int:pk>/', views.repairpk_list, name='suri_list_pk'),
-    path('infogigi/suri/', views.suri_infogigi, name='suri_infogigi'),    
+    path('infogigi/suri/infogigi/', views.suri_infogigi, name='suri_infogigi'),    
+    path('infogigi/suri/place/', views.suri_place, name='suri_place'),    
     path('infogigi/suri/search', views.SearchRepairLV.as_view(), name='search_suri'),    
     path('infogigi/suri/<int:pk>/', views.RepairPhotoUV.as_view(), name='suri_update'),
     path('infogigi/suri/delete/<int:pk>/', views.suri_delete, name='suri_delete'),

@@ -58,6 +58,23 @@ $(function () {
         return false;
     };
 
+    var loadForm2 = function () {
+        var btn = $(this);
+        var number = btn.attr('class').split(' ')[2];
+        $.ajax({
+            url: btn.attr("data-url"),
+            type: 'get',
+            data: {'number': number},
+            dataType: 'json',
+            beforeSend: function () {
+            $("#modal-place").modal("show");
+            },
+            success: function (data) {
+            $("#modal-place .modal-content").html(data.html_form);               
+            }
+        });
+    };
+
     var surisaveForm = function () {
         var form = $(this);
         var formData = new FormData($('#suri-form')[0]);
@@ -75,6 +92,29 @@ $(function () {
             }
             else {
                 $("#modal-infogigi .modal-content").html(data.html_form);
+            }                      
+        }       
+        });
+        return false;
+    };
+
+    var surisaveForm2 = function () {
+        var form = $(this);
+        var formData = new FormData($('#suri-form')[0]);
+        $.ajax({
+        url: form.attr("action"),
+        data: formData,
+        type: form.attr("method"),
+        dataType: 'json',
+        contentType : false, //false 로 선언 시 content-type 헤더가 multipart/form-data로 전송되게 함
+        processData : false, //false로 선언 시 formData를 string으로 변환하지 않음
+        success: function (data) {
+            if (data.form_is_valid) {  
+                window.location.reload();
+                $("#modal-place").modal("hide");
+            }
+            else {
+                $("#modal-place .modal-content").html(data.html_form);
             }                      
         }       
         });
@@ -115,9 +155,12 @@ $(function () {
     // Delete infogigi
     $("#infogigi-table").on("click", ".js-delete-infogigi", loadForm);
     $("#modal-infogigi").on("submit", ".js-infogigi-delete-form", saveForm);
-    //수리
+    //기기수리
     $(".js-suri-infogigi").click(loadForm);
     $("#modal-infogigi").on("submit", ".js-infogigi-suri-form", surisaveForm);
+    //공간내 수리
+    $(".js-suri-place").click(loadForm2);
+    $("#modal-place").on("submit", ".js-place-suri-form", surisaveForm2);
     // 부품 교환    
     $(".js-bupum-infogigi").click(loadForm);
     $("#modal-infogigi").on("submit", ".js-infogigi-bupum-form", saveForm);    

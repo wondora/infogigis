@@ -196,6 +196,39 @@ def suri_infogigi(request):
     return JsonResponse(data)
 
 @login_required
+def suri_place(request):
+    data = dict()
+    if request.method == 'POST':
+        form = RepairForm(request.POST)
+        if form.is_valid():            
+            form.save() 
+            if request.FILES:
+                try:
+                    for img in request.FILES.getlist('images'):
+                        # Photo 객체를 하나 생성한다.
+                        photo = Photo()
+                        # 외래키로 현재 생성한 Repair의 기본키를 참조한다.
+                        photo.suri = form.instance
+                        # imgs로부터 가져온 이미지 파일 하나를 저장한다.
+                        photo.image = img
+                        # 데이터베이스에 저장
+                        photo.save()   
+                # except Exception as ex: #에러 이름을 모를때
+                #     print('에러가 발생 했습니다', ex) 
+                except:
+                    pass #이미지가 없어도 그냥 지나가도록
+            data['form_is_valid'] = True
+        else:
+            data['form_is_valid'] = False   
+    else:
+        place_number = request.GET.get('number')
+        # form = RepairForm()
+        template_name = 'gshs/suri/partial-suri-place-create.html'  
+        context = {'place_number': place_number} 
+        data['html_form'] = render_to_string(template_name, context, request=request)
+    return JsonResponse(data)
+
+@login_required
 def bupum_infogigi(request):
     data = dict()
     if request.method == 'POST':
@@ -775,7 +808,7 @@ class SearchbupumLV(ListView):
         return context
 
 class PlaceLV(ListView): 
-    template_name = 'gshs/place/list_place.html'  
+    template_name = 'gshs/place/list-place.html'  
 
     def get_queryset(self, **kwargs):
         self.place_gubun = self.kwargs['place_gubun']
@@ -789,17 +822,20 @@ class PlaceLV(ListView):
         self.place_list = self.place_name.infogigi_set.all().select_related('productgubun','people','place')
         context['place_gigi_list'] = self.place_name.infogigi_set.filter(productgubun__gubun_name='PRINTER').select_related('productgubun','people','place')         
         context['place_people_list'] = self.place_name.infogigi_set.filter(Q(productgubun__gubun_name='NOTEBOOK') | Q(productgubun__gubun_name='DESKTOP')).select_related('productgubun','people','place')   
+        context['place_id'] = self.place_name.id
+
         suri_data = [] 
-        for i in range(len(self.place_list)):
-            
+        for i in range(len(self.place_list)): 
+            if not self.place_list[i].repair_set.all().select_related('infogigi'):
+                continue
             suri_data.append(self.place_list[i].repair_set.all().select_related('infogigi'))
         context['place_suri_list'] = suri_data 
-        print(context['place_suri_list'])
 
         bupum_data = [] 
-        for i in range(len(self.place_list)):
-            
-            suri_data.append(self.place_list[i].bupumchange_set.all().select_related('infogigi'))
+        for i in range(len(self.place_list)):   
+            if not self.place_list[i].bupumchange_set.all().select_related('infogigi'):
+                continue
+            bupum_data.append(self.place_list[i].bupumchange_set.all().select_related('infogigi'))
         context['place_bupum_list'] = bupum_data
-        print(context['place_bupum_list'])
+
         return context

@@ -1,11 +1,11 @@
 {% for items in place_suri_list %}
-  {% for item in items %}
+  {% for item in items %}    
     <tr onClick="location.href='{% url "gshs:suri_list_pk" item.id %}'" style="cursor:pointer;">  
         <td>{{ item.created_date|date:'Y.m.d' }}</td>      
         <td>{{ item.infogigi.maker}}</td>
         <td>{{ item.infogigi.model}}</td>
-        <td>{{ item.cause }}</td>
-        <td>{{ item.result|truncatechars:7 }}</td>            
+        <td>{{ item.cause|truncatechars:7 }}</td>
+        <td>{{ item.result|truncatechars:15 }}</td>            
     </tr> 
   {% endfor %}
 {% endfor %}

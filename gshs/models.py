@@ -1,6 +1,7 @@
 from django.db import models
 from datetime import datetime 
 from django.core.exceptions import ValidationError
+from django.db.models.fields import BLANK_CHOICE_DASH
 from django.urls import reverse
 
 
@@ -99,7 +100,8 @@ class Gigirental(models.Model):
 
 class Repair(models.Model):
     created_date = models.DateField(auto_now_add=True)
-    infogigi = models.ForeignKey("gshs.Infogigi", on_delete=models.SET_NULL, null=True)
+    infogigi = models.ForeignKey("gshs.Infogigi", on_delete=models.SET_NULL, null=True, blank=True)
+    place = models.ForeignKey("gshs.Place", on_delete=models.SET_NULL, null=True, blank=True)
     cause = models.CharField(max_length=200)
     result = models.TextField()      
     price = models.PositiveIntegerField(default=0, null=False, blank=True)
@@ -171,7 +173,7 @@ class Productgubun(models.Model):
         db_table = 'productgubun'
 
     def __str__(self):
-        return '{}'.format(self.gubun_name)
+        return '{} / {}'.format(self.table_name,self.gubun_name)
 
 def file_size(value): 
     limit = 3 * 1024 * 1024 

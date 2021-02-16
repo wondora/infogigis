@@ -1,10 +1,12 @@
 {% load humanize %}
-{% for item in place_bupum_list %}
-<tr>
-  <td>{{ item.created_date|date:'Y.m.d' }}</td>
-  <td>{{ item.infogigi.place.room }}/{{item.infogigi }}</td>
-  <td>{{ item.productbuy.model}}</td>           
-  <td>{{ item.count }}</td>
-  <td>&#8361;&nbsp;{{ item.price|intcomma }}</td>
-</tr>
+{% for items in place_bupum_list %}
+  {% for item in items %} 
+    <tr>
+      <td>{{ item.created_date|date:'Y.m.d' }}</td>
+      <td>{{ item.infogigi.place.room }}/{{item.infogigi }}</td>
+      <td>{{ item.productbuy.model}}</td>           
+      <td>{{ item.count }}</td>
+      <td>&#8361;&nbsp;{{ item.price|intcomma }}</td>
+    </tr>
+  {% endfor %}
 {% endfor %}
