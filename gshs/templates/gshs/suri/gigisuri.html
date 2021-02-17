@@ -28,7 +28,11 @@
         <div class="card">
             <div class="card-header">
                 <div style="margin-bottom: 10px; display: inline-block; float:left; width: 80%;">
+                    {% if item.place %}
+                    <div style="font-weight: bold; font-size: 14px;">{{ item.place }}</div>
+                    {% else %}
                     <div style="font-weight: bold; font-size: 14px;">{{ item.infogigi.place }}&nbsp( {{ item.infogigi.productgubun.gubun_name }} )&nbsp{{ item.infogigi }}</div>
+                    {% endif %}
                     <div style="font-size: 12px; letter-spacing: 1px;">
                             {{ item.created_date|date:'Y.m.d'}}
                     </div>

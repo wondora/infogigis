@@ -100,7 +100,7 @@ $(function () {
 
     var surisaveForm2 = function () {
         var form = $(this);
-        var formData = new FormData($('#suri-form')[0]);
+        var formData = new FormData($('#place-form')[0]);
         $.ajax({
         url: form.attr("action"),
         data: formData,
