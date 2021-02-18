@@ -25,8 +25,7 @@
         <tr>
             <th>생성일</th>
             <th>재고기기</th>                        
-            <th>대여현황</th>
-            <th>불용여부</th>                             
+            <th>대여현황</th>                                         
             <th>비고</th>
             <th></th>
         </tr>
@@ -35,7 +34,10 @@
         {% include './partial-jaego-list.html'%}
     </tbody>
 </table>
-{% include 'gshs/snippet/_pagination.html' with page_obj=page_obj page_range=page_range %}
+
+<div style="margin-top:20px;">
+    {% include 'gshs/snippet/_pagination.html' with page_obj=page_obj page_range=page_range %}
+</div>
 
 <div class="modal fade" id="{{ modal_gubun }}">
     <div class="modal-dialog">

@@ -10,7 +10,7 @@ PhotoInlineFormSet = inlineformset_factory(Repair, Photo,\
 class InfogigiForm(forms.ModelForm):  
     def __init__(self, *args, **kwargs): 
         super().__init__(*args, **kwargs) 
-        self.fields['productgubun'].queryset = Productgubun.objects.filter(table_name='infogigi')       
+        self.fields['productgubun'].queryset = Productgubun.objects.filter(main_division='infogigi')       
 
 
     class Meta:
@@ -35,7 +35,7 @@ class RepairForm(forms.ModelForm):
 class ProductbuyForm(forms.ModelForm):  
     def __init__(self, *args, **kwargs): 
         super().__init__(*args, **kwargs) 
-        self.fields['productgubun'].queryset = Productgubun.objects.filter(table_name='productbuy')    
+        self.fields['productgubun'].queryset = Productgubun.objects.all()    
 
     class Meta:
         model = Productbuy
@@ -49,7 +49,7 @@ class JaegoForm(forms.ModelForm):
 class BupumchangeForm(forms.ModelForm):
     def __init__(self, *args, **kwargs): 
         super().__init__(*args, **kwargs) 
-        self.fields['productbuy'].queryset = Productbuy.objects.filter(productgubun__table_name='bupum').select_related('productgubun')  
+        self.fields['productbuy'].queryset = Productbuy.objects.filter(productgubun__main_division='Consumables').select_related('productgubun')  
 
     class Meta:
         model = Bupumchange
@@ -75,6 +75,9 @@ class SoftwarestockForm(forms.ModelForm):
     class Meta:
         model = Softwarestock 
         fields = '__all__'
+        widgets = {
+            'remain': forms.HiddenInput
+        }
         
 class SoftwarerentalForm(forms.ModelForm):
     class Meta:

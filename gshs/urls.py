@@ -29,6 +29,7 @@ urlpatterns = [
     path('infogigi/jaego/search', views.SearchJaegoLV.as_view(), name='search_jaego'),
     path('infogigi/jaego/<int:pk>/', views.jaego_infogigi, name='jaego_infogigi'),  
     path('infogigi/jaego/rental/', views.jaego_rental, name='jaego_rental'),  
+    path('infogigi/jaego/notuse/', views.jaego_notuse, name='jaego_notuse'),  
     #기기렌탈 
     path('infogigi/gigirental/', views.GigirentalLV.as_view(), name='gigirental_list'), 
     path('infogigi/gigirental/receive/<int:pk>/', views.gigirental_receive, name='gigirental_receive'), 
@@ -42,6 +43,7 @@ urlpatterns = [
     path('infogigi/people/update/<int:pk>/', views.PeopleUV.as_view(), name='update_people'),
     path('infogigi/people/delete/<int:pk>/', views.delete_people, name='people_delete'),
     # 소프트웨어 재고
+    path('infogigi/softwarestock/create', views.create_softwarestock, name='create_softwarestock'),
     path('infogigi/softwarestock/', views.SoftwarestockLV.as_view(), name='softwarestock_list'),
     path('infogigi/softwarestock/rental/', views.software_rental, name='software_rental'),
     # 소프트웨어 렌탈

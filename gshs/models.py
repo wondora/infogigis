@@ -66,7 +66,7 @@ class Jaego(models.Model):
     created_date = models.DateField(auto_now_add=True)    
     infogigi = models.ForeignKey("gshs.Infogigi", on_delete=models.SET_NULL, null=True)
     rental_choices = (
-        ('yes', '가능'),
+        ('yes', '대여가능'),
         ('no', '대여중'),
     )
     rental_status = models.CharField(max_length=3, choices=rental_choices, default='yes', null=False, blank=True)
@@ -166,14 +166,14 @@ class Bupumchange(models.Model):
     # def __str__(self):
     #     return '{}'.format(self.productbuy)
 class Productgubun(models.Model):
-    table_name = models.CharField(max_length=30, default='infogigi')
-    gubun_name = models.CharField(max_length=50)
+    main_division = models.CharField(max_length=30, default='infogigi')
+    sub_division = models.CharField(max_length=50)
 
     class Meta:
         db_table = 'productgubun'
 
     def __str__(self):
-        return '{} / {}'.format(self.table_name,self.gubun_name)
+        return '{} / {}'.format(self.main_division,self.sub_division)
 
 def file_size(value): 
     limit = 3 * 1024 * 1024 
@@ -195,7 +195,9 @@ class Photo(models.Model):
 
 class Softwarestock(models.Model):
     created_date = models.DateField(auto_now_add=True)
+    maker = models.CharField(max_length=50, null=True, blank=True)
     model = models.CharField(max_length=100)
+    license = models.TextField(null=True)
     count = models.PositiveSmallIntegerField(default=1, blank=True)
     price = models.PositiveIntegerField(default=0, null=False, blank=True) 
     remain = models.PositiveSmallIntegerField(null=True, blank=True) 

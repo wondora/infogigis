@@ -46,8 +46,9 @@
     <i class="far fa-plus-square"></i>
 </button>
 
-{% include 'gshs/snippet/_pagination.html' with page_obj=page_obj page_range=page_range %}
-
+<div style="margin-top:20px;">
+    {% include 'gshs/snippet/_pagination.html' with page_obj=page_obj page_range=page_range %}
+</div>
 <div class="modal fade" id="{{ modal_gubun }}">
     <div class="modal-dialog">
         <div class="modal-content">

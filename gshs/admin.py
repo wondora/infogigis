@@ -55,7 +55,7 @@ class PeopleAdmin(ImportExportModelAdmin):
 
 @admin.register(Productgubun)
 class ProductgubunAdmin(admin.ModelAdmin):
-    list_display = ('gubun_name',)
+    list_display = ('sub_division',)
 
 @admin.register(Softwarestock)
 class SoftwarestockAdmin(admin.ModelAdmin):

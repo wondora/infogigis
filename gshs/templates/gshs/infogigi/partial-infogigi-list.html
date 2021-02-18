@@ -1,6 +1,6 @@
 {% for item in object_list %}
     <tr>
-        <td>{{ item.productgubun.gubun_name }}</td>
+        <td>{{ item.productgubun.sub_division }}</td>
         <td>{{ item.buy_date|date:'Y.m.d'}}</td>
         {% if gigigubun == "NOTEBOOK" or gigigubun == "DESKTOP" or gigigubun == "all" %}
             <td>{{ item.people }}</td>

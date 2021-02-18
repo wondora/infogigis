@@ -4,7 +4,7 @@
 
 {% block title %}SOFTWARE STOCK{% endblock %}
 {% block js %} 
-<script type="text/javascript" src="{% static 'gshs/js/infogigis.js' %}"></script>   
+<script type="text/javascript" src="{% static 'gshs/js/infogigis.js' %}"></script>  
 {% endblock %}
 
 {% block content %}
@@ -17,14 +17,21 @@
     <button class="custom-btn" style="margin-top:2px;">
         <i class="fas fa-search"></i>
     </button> 
-    </form>      
+    </form> 
+    <span style="margin-left:10px;">
+        <button class="custom-btn js-create-softwarestock" data-url="{% url 'gshs:create_softwarestock' %}" title="새글 쓰기">
+        <i class="far fa-plus-square"></i>
+        </button>
+    </span>      
 </div>      
 
 <table class="custom-table" id="suri-table">
     <thead style="font-size: 14px;">
         <tr>
-            <th>구매일</th>                                    
+            <th>구매일</th> 
+            <th>제조사</th>                                   
             <th>제품명</th>
+            <th>제품키</th>
             <th>구매수량</th>   
             <th>가격</th>
             <th>남은수량</th>                  
@@ -36,9 +43,11 @@
     </tbody>
 </table>
 
-{% include 'gshs/snippet/_pagination.html' with page_obj=page_obj page_range=page_range %}
+<div style="margin-top:20px;">
+    {% include 'gshs/snippet/_pagination.html' with page_obj=page_obj page_range=page_range %}
+</div>
 
-<div class="modal fade" id="{{ modal_gubun }}">
+<div class="modal fade" id="modal-softwarestock">
     <div class="modal-dialog">
         <div class="modal-content">
         </div>

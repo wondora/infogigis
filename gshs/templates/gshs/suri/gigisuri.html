@@ -31,7 +31,7 @@
                     {% if item.place %}
                     <div style="font-weight: bold; font-size: 14px;">{{ item.place }}</div>
                     {% else %}
-                    <div style="font-weight: bold; font-size: 14px;">{{ item.infogigi.place }}&nbsp( {{ item.infogigi.productgubun.gubun_name }} )&nbsp{{ item.infogigi }}</div>
+                    <div style="font-weight: bold; font-size: 14px;">{{ item.infogigi.place }}&nbsp( {{ item.infogigi.productgubun.sub_division }} )&nbsp{{ item.infogigi }}</div>
                     {% endif %}
                     <div style="font-size: 12px; letter-spacing: 1px;">
                             {{ item.created_date|date:'Y.m.d'}}
@@ -48,7 +48,7 @@
             </div>
             
             <div class="card-body">
-                <div class="fotorama" data-fit="cover" data-allowfullscreen="true" data-nav="thumbs" data-width="100%">
+                <div class="fotorama" data-fit="contain" data-allowfullscreen="true" data-nav="thumbs" data-width="100%">
                     {% if item.photo_set.all %}            
                         {% for photo in item.photo_set.all %}
                             <a href="{{ photo.image.url }}"><img src={{ photo.image.url }}></a>

@@ -56,12 +56,13 @@
     </tbody>
 </table>
 
-<button class="custom-btn js-create-infogigi" data-url="{% url 'gshs:create_infogigi' %}"" title="새글 쓰기">
+<button class="custom-btn js-create-infogigi" data-url="{% url 'gshs:create_infogigi' %}" title="새글 쓰기">
     <i class="far fa-plus-square"></i>
 </button>  
 
-{% include 'gshs/snippet/_pagination.html' with page_obj=page_obj page_range=page_range %}
-
+<div style="margin-top:20px;">
+    {% include 'gshs/snippet/_pagination.html' with page_obj=page_obj page_range=page_range %}
+</div>
 <div class="modal fade" id="modal-infogigi">
     <div class="modal-dialog">
         <div class="modal-content">

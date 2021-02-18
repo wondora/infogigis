@@ -11,7 +11,6 @@ function checkSize(input) {
     }  
 }
 
-
 $(function () {
     var gigigubun_val = $('select.gigigubun').attr('data-gigi');
     $('select.gigigubun option[value=' + gigigubun_val + ']').attr('selected', 'selected');
@@ -19,6 +18,8 @@ $(function () {
         $('select.gigigubun').attr('data-gigi', $(this).val());
         location.href='/gshs/infogigi/gigi/' + $('select.gigigubun').attr('data-gigi');
     });
+
+    $('[data-toggle="popover"]').popover()
 
 /* Functions */
     var loadForm = function () {
@@ -175,6 +176,7 @@ $(function () {
         var btn = $(this);
         var modalgubun = $(".modal").attr("id");
         var number = btn.attr('class').split(' ')[2];
+                 
         $.ajax({
             url: btn.attr("data-url"),
             type: 'get',
@@ -198,9 +200,9 @@ $(function () {
         type: form.attr("method"),
         dataType: 'json',        
         success: function (data) {
-            if (data.form_is_valid) {  
-                window.location.reload();
+            if (data.form_is_valid) {                 
                 $("#"+modalgubun).modal("hide");
+                window.location.reload();
             }
             else {
                 $("#"+modalgubun+" .modal-content").html(data.html_form);
@@ -244,19 +246,22 @@ $(function () {
     // 기기대여
     $(".js-rental-infogigi").click(main_loadForm);
     $("#modal-rental").on("submit", ".js-jaego-rental-form", main_saveForm);
+    //// 소프트웨어 구매
+    $(".js-create-softwarestock").click(main_loadForm)
+    $("#modal-softwarestock").on("submit", ".js-softwarestock-create-form", main_saveForm);
     // 소프트웨어 대여
     $(".js-rental-software").click(main_loadForm);
     $("#modal-softwarerental").on("submit", ".js-software-rental-form", main_saveForm);
 
-    $(document).ready(function () {
-        $(".place-left ul li").each(function() {
-            $(this).click(function() {
-                if $(this).attr('class') 
-                $(this).addClass("listchected");
-                $(this).siblings().removeClass("listchected");
-            });  
-        });
-    })
+    // $(document).ready(function () {
+    //     $(".place-left ul li").each(function() {
+    //         $(this).click(function() {
+    //             if $(this).attr('class') 
+    //             $(this).addClass("listchected");
+    //             $(this).siblings().removeClass("listchected");
+    //         });  
+    //     });
+    // })
 });
 
 

@@ -32,13 +32,13 @@ class InfogigiLV(ListView):
         if self.gigigubun == 'all':
             queryset = Infogigi.objects.filter(status=True).select_related('productgubun','people','place')
         else:
-             queryset = Infogigi.objects.filter(productgubun__gubun_name=self.gigigubun, status=True).select_related('productgubun','people','place')
+             queryset = Infogigi.objects.filter(productgubun__sub_division=self.gigigubun, status=True).select_related('productgubun','people','place')
         return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)  
               
-        gigi = Productgubun.objects.filter(table_name='infogigi')
+        gigi = Productgubun.objects.filter(main_division='infogigi')
         context["productgubun"] =gigi 
         context["gigigubun"] = self.gigigubun 
         paginator = context['paginator']
@@ -71,7 +71,7 @@ class SearchinfoLV(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        gigi = Productgubun.objects.filter(table_name='infogigi')
+        gigi = Productgubun.objects.filter(main_division='infogigi')
         context["productgubun"] =gigi
         context["gigigubun"] = 'all'
         paginator = context['paginator']
@@ -99,7 +99,7 @@ def save_infogigi_form(request, form, template_name):
     if request.method == 'POST':
         if form.is_valid():
             form.save()  
-            if form.instance.productgubun.table_name == 'productbuy':
+            if form.instance.productgubun.main_division == 'productbuy':
                 Softwarestock.objects.create(model = form.instance.model, count = form.instance.count, remain = form.instance.count, price = form.instance.price)
             data['form_is_valid'] = True
         else:
@@ -245,7 +245,7 @@ def bupum_infogigi(request):
         bupum_number = request.GET.get('number')
         template_name = 'gshs/bupum/partial-bupum-create.html'  
         form = BupumchangeForm()
-        # bupum_name = Productbuy.objects.filter(productgubun__gubun_name='CONSUMABLE')
+        # bupum_name = Productbuy.objects.filter(productgubun__sub_division='CONSUMABLE')
         context = {'bupum_number': bupum_number, 'form': form} 
         data['html_form'] = render_to_string(template_name, context, request=request)
     return JsonResponse(data)
@@ -297,7 +297,7 @@ def export_excel(request):
 
     font_style = xlwt.XFStyle()
 
-    rows = Infogigi.objects.filter(productgubun__gubun_name=gigigubun).values_list('productgubun','buy_date','people__name',Concat(V('['),'place__building',V(']'),'place__room'),'maker','model','ip','bigo')
+    rows = Infogigi.objects.filter(productgubun__sub_division=gigigubun).values_list('productgubun','buy_date','people__name',Concat(V('['),'place__building',V(']'),'place__room'),'maker','model','ip','bigo')
 
     for row in rows:
         row_num+= 1        
@@ -310,7 +310,7 @@ def export_excel(request):
 @login_required
 def jaego_infogigi(request, pk):
     Infogigi.objects.filter(id=pk).update(status=0)
-    Jaego(infogigi_id=pk)
+    Jaego.objects.create(infogigi_id=pk)
     return JsonResponse({'data':True})
 
 @login_required
@@ -497,7 +497,7 @@ class SearchProductBuyLV(ListView):
         return context
 
 class JaegoLV(ListView):
-    queryset = Jaego.objects.all().select_related('infogigi')
+    queryset = Jaego.objects.filter(not_use=False).select_related('infogigi')
     template_name = 'gshs/jaego/jaego.html'
     paginate_by = 10
 
@@ -551,6 +551,10 @@ class SearchJaegoLV(ListView):
         context['word'] = word        
         return context
 
+@login_required
+def jaego_notuse(request, pk):
+    Jaego.objects.filter(id=pk).update(not_use=True)
+    return redirect('gshs:jaego_list')
 
 class GigirentalLV(ListView):
     queryset = Gigirental.objects.all().select_related('jaego','people','place')
@@ -580,11 +584,11 @@ class GigirentalLV(ListView):
 def productgubun_select(request):
     queryset = Productgubun.objects.all()
     query = request.GET.get('q')
-    queryset = queryset.filter(gubun_name__icontains=query)
+    queryset = queryset.filter(sub_division__icontains=query)
     results = [
         {
             'id': productgubun.id,
-            'text': productgubun.gubun_name,
+            'text': productgubun.sub_division,
         } for productgubun in queryset
     ]
 
@@ -690,6 +694,22 @@ class SoftwarestockLV(ListView):
         context['page_range'] = page_range  
         context['modal_gubun'] = 'modal-softwarerental'
         return context
+
+@login_required
+def create_softwarestock(request):    
+    data = dict()
+    if request.method == 'POST':
+        form = SoftwarestockForm(request.POST)
+        if form.is_valid(): 
+            form.save()                      
+            data['form_is_valid'] = True     
+    else:
+        data['form_is_valid'] = False        
+        template_name = 'gshs/softwarestock/softwarestock-create.html'  
+        form = SoftwarestockForm()
+        context = {'form': form} 
+        data['html_form'] = render_to_string(template_name, context, request=request)
+    return JsonResponse(data)
 
 @login_required
 def software_rental(request):
@@ -820,8 +840,8 @@ class PlaceLV(ListView):
         context = super().get_context_data(**kwargs)
         context['gubun'] = self.place_name.buseo
         self.place_list = self.place_name.infogigi_set.all().select_related('productgubun','people','place')
-        context['place_gigi_list'] = self.place_name.infogigi_set.filter(productgubun__gubun_name='PRINTER').select_related('productgubun','people','place')         
-        context['place_people_list'] = self.place_name.infogigi_set.filter(Q(productgubun__gubun_name='NOTEBOOK') | Q(productgubun__gubun_name='DESKTOP')).select_related('productgubun','people','place')   
+        context['place_gigi_list'] = self.place_name.infogigi_set.filter(productgubun__sub_division='PRINTER').select_related('productgubun','people','place')         
+        context['place_people_list'] = self.place_name.infogigi_set.filter(Q(productgubun__sub_division='NOTEBOOK') | Q(productgubun__sub_division='DESKTOP')).select_related('productgubun','people','place')   
         context['place_id'] = self.place_name.id
 
         suri_data = [] 
