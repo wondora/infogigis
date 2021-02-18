@@ -247,6 +247,16 @@ $(function () {
     // 소프트웨어 대여
     $(".js-rental-software").click(main_loadForm);
     $("#modal-softwarerental").on("submit", ".js-software-rental-form", main_saveForm);
+
+    $(document).ready(function () {
+        $(".place-left ul li").each(function() {
+            $(this).click(function() {
+                if $(this).attr('class') 
+                $(this).addClass("listchected");
+                $(this).siblings().removeClass("listchected");
+            });  
+        });
+    })
 });
 
 

@@ -24,7 +24,7 @@
 
 <div class="row" style="margin-top: 30px; border: 1px solid #ccc; padding:30px 20px; border-radius: 2px;">
 {% for item in object_list %}
-    <div class="col-sm-3" style="margin-bottom: 20px;">
+    <div class="col-sm-4" style="margin-bottom: 20px;">
         <div class="card">
             <div class="card-header">
                 <div style="margin-bottom: 10px; display: inline-block; float:left; width: 80%;">
@@ -79,9 +79,9 @@
 
 {% endfor %}    
 </div>
-
+<div style="margin-top:20px;">
 {% include 'gshs/snippet/_pagination.html' with page_obj=page_obj page_range=page_range %}
-
+</div>
 <div class="modal fade" id="{{ modal_gubun }}">
     <div class="modal-dialog">
         <div class="modal-content">
