@@ -701,14 +701,18 @@ def create_softwarestock(request):
     if request.method == 'POST':
         form = SoftwarestockForm(request.POST)
         if form.is_valid(): 
-            form.save()                      
-            data['form_is_valid'] = True     
+            form.save(commit=False)
+            form.instance.remain = form.instance.count
+            form.save()   
+            data['form_is_valid'] = True                    
+        else:
+            data['form_is_valid'] = False
     else:
-        data['form_is_valid'] = False        
         template_name = 'gshs/softwarestock/softwarestock-create.html'  
         form = SoftwarestockForm()
         context = {'form': form} 
         data['html_form'] = render_to_string(template_name, context, request=request)
+
     return JsonResponse(data)
 
 @login_required
@@ -718,21 +722,22 @@ def software_rental(request):
         form = SoftwarerentalForm(request.POST)
         pk = request.POST.get('transfer_no')
         if form.is_valid():
-            stock_count = Softwarestock.objects.filter(id=pk).values('count')
-            remain_count = stock_count[0]['count'] - form.cleaned_data['count']
+            stock_count = Softwarestock.objects.filter(id=pk).values('remain')
+            remain_count = stock_count[0]['remain'] - form.cleaned_data['count']
             Softwarestock.objects.filter(id=pk).update(remain=remain_count)                
                 # add_error('count', '남은 수량 보다 많이 입력하였습니다.!')  #폼 안에 있는 기본함수 add_error(), 특정필드에 error를 넣는 함수               
             form.instance.softwarestock = Softwarestock.objects.get(id=pk)
-            form.save()            
-            data['form_is_valid'] = True
-        else:            
-            data['form_is_valid'] = False
-    else:        
+            form.save()  
+            data['form_is_valid'] = True 
+        else:      
+            data['form_is_valid'] = False 
+    else:
         software_no = request.GET.get('number')        
         form = SoftwarerentalForm()
-        template_name = 'gshs/softwarestock/partial-software-rental.html'   
+        template_name = 'gshs/softwarestock/softwarestock-rental.html'   
         context = {'form':form, 'transfer_no': software_no}              
         data['html_form'] = render_to_string(template_name, context, request=request)
+
     return JsonResponse(data)
 
 class SoftwarerentalLV(ListView):
@@ -764,7 +769,7 @@ def softwarerental_receive(request, pk):
     tz = pytz.timezone('Asia/Seoul')
     Num = Softwarerental.objects.get(id=pk) 
     remaining = Num.count + Num.softwarestock.remain
-    Softwarestock.objects.update(remain=remaining)
+    Softwarestock.objects.filter(id=Num.softwarestock_id).update(remain=remaining)
     Softwarerental.objects.filter(id=pk).update(due_date=datetime.now(tz).strftime("%Y-%m-%d"))   
     return JsonResponse({'data':True})
 

@@ -246,12 +246,12 @@ $(function () {
     // 기기대여
     $(".js-rental-infogigi").click(main_loadForm);
     $("#modal-rental").on("submit", ".js-jaego-rental-form", main_saveForm);
-    //// 소프트웨어 구매
+    // 소프트웨어 구매
     $(".js-create-softwarestock").click(main_loadForm)
     $("#modal-softwarestock").on("submit", ".js-softwarestock-create-form", main_saveForm);
     // 소프트웨어 대여
     $(".js-rental-software").click(main_loadForm);
-    $("#modal-softwarerental").on("submit", ".js-software-rental-form", main_saveForm);
+    $("#modal-softwarestock").on("submit", ".js-softwarestock-rental-form", main_saveForm);
 
     // $(document).ready(function () {
     //     $(".place-left ul li").each(function() {

@@ -49,7 +49,7 @@ class JaegoForm(forms.ModelForm):
 class BupumchangeForm(forms.ModelForm):
     def __init__(self, *args, **kwargs): 
         super().__init__(*args, **kwargs) 
-        self.fields['productbuy'].queryset = Productbuy.objects.filter(productgubun__main_division='Consumables').select_related('productgubun')  
+        self.fields['productbuy'].queryset = Productbuy.objects.filter(productgubun__main_division='consumables').select_related('productgubun')  
 
     class Meta:
         model = Bupumchange
