@@ -864,3 +864,6 @@ class PlaceLV(ListView):
         context['place_bupum_list'] = bupum_data
 
         return context
+
+def photo_place(request, pk):
+    pass
