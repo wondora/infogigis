@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block js %}
+    <script type="text/javascript" src="{% static 'gshs/js/infogigis.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+
+<form method="post" action="{% url 'gshs:photo_place' place_id %}" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="modal-header">
+        <h4 class="modal-title">Image Place</h4>        
+    </div>
+    <div class="modal-body">
+      <div class="form-group{% if field.errors %} has-error{% endif %}">
+        <label for="id_place">Place</label>
+        <input type="text" name="place" id="id_place" class="form-control" maxlength="100" value="{{ place_id }}">
+        {% for error in field.errors %}
+            <p class="help-block" sytle="color:red">{{ error }}</p>
+        {% endfor %}
+      </div>
+      <div class="form-group{% if field.errors %} has-error{% endif %}">
+          <label for="id_images">Images</label>
+          <input type="file" name="images" id="id_images" class="form-control-file" multiple  onchange="checkSize(this)">
+          {% for error in field.errors %}
+              <p class="help-block" sytle="color:red">{{ error }}</p>
+          {% endfor %}
+      </div>
+    </div>
+    <div class="modal-footer">        
+        <button type="submit" class="btn btn-outline-info">submit</button>
+    </div>
+</form>
+
+{% endblock %}

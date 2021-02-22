@@ -5,7 +5,7 @@ a:link {color: #6b6b6b;text-decoration: none;}
 a:visited {color: #6b6b6b;text-decoration: none;}
 a:active {color: #6b6b6b;text-decoration: none;}
 a:hover {color: #6b6b6b;text-decoration: none}
-
+h4, h5 {margin: 0}
 body {font-family: 'Nanum Gothic', sans-serif; background-color: #fafafa; overflow-y: scroll; color: #6b6b6b;}
   
 table { background-color: #fafafa; font-size: 13px;}
@@ -101,20 +101,27 @@ footer { width: 100% ; height: 150px; margin-top: 30px;}
     display:inline-block;
     border:1px solid #ccc;
     text-align:center; 
+    background-color: rgb(242, 248, 255);
     padding:20px 5px;    
     letter-spacing:3px;
     width:100%;
 }
 .content .place-left li {
     display: inline-block;
-    text-align: center;
-    font-size: 16px;
-    padding: 40px 0 10px;
+    text-align: center;    
+    line-height: 2;    
     border-bottom: 1px solid #efefef;
     color: #6b6b6b;    
     width:100%;
 }
-.listchected {
+.content .place-left li a {
+    display: inline-block;
+    vertical-align: bottom;
+    font-size: 15px;
+    font-weight: 500;
+    padding: 25px 0 5px;
+}
+.content .place-left li:hover {
     background-color: #aeecc9;
 }
 .place-table {

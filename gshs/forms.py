@@ -1,8 +1,9 @@
 from django import forms
 from django.forms import inlineformset_factory
-from gshs.models import Infogigi, Productbuy, Repair, Jaego, Photo, Gigirental, People, Softwarerental, Softwarestock, Bupumchange, Productgubun
+from gshs.models import Infogigi, Productbuy, Repair, Jaego, Photo, Gigirental, People, Softwarerental, Softwarestock, Bupumchange, Productgubun, Place
 from gshs.widgets import AutoCompleteWidget, DatePickerWidget
 from django.urls import reverse_lazy
+from gshs.common.image_custom_widget import PreviewImageFileWidget
 
 PhotoInlineFormSet = inlineformset_factory(Repair, Photo,\
     fields=['image',], extra=3)
@@ -86,3 +87,13 @@ class SoftwarerentalForm(forms.ModelForm):
         widgets = {
             'softwarestock': forms.HiddenInput
         }
+
+class PhotoForm(forms.ModelForm):
+    class Meta:
+        model = Photo
+        fields = ['place', 'image']
+        # widgets = {
+        #     'image': PreviewImageFileWidget()
+        # }
+PlaceImageFormSet = inlineformset_factory(Place, Photo,\
+    fields=['image',], extra=2)

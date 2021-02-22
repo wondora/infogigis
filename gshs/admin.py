@@ -64,3 +64,7 @@ class SoftwarestockAdmin(admin.ModelAdmin):
 @admin.register(Softwarerental)
 class SoftwarestockAdmin(admin.ModelAdmin):
     list_display = ('rental_date', 'softwarestock','people', 'place', 'count', 'bigo')
+
+@admin.register(Photo)
+class PhotokAdmin(admin.ModelAdmin):
+    list_display = ('id', 'suri','place', 'image')

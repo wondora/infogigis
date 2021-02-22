@@ -3,7 +3,7 @@ from django.shortcuts import render
 from gshs.models import *
 from django.views.generic import ListView, CreateView, UpdateView
 from django.db.models import Q
-from gshs.forms import InfogigiForm, RepairForm, ProductbuyForm, GigirentalForm, PeopleForm, SoftwarerentalForm, SoftwarestockForm, BupumchangeForm
+from gshs.forms import InfogigiForm, RepairForm, ProductbuyForm, GigirentalForm, PeopleForm, SoftwarerentalForm, SoftwarestockForm, BupumchangeForm, PhotoForm
 from django.template.loader import render_to_string
 from django.http import JsonResponse
 from django.core.paginator import Paginator
@@ -13,11 +13,12 @@ import xlwt
 from django.db.models import Value as V
 from django.db.models.functions import Concat
 from datetime import datetime, timezone 
-from gshs.forms import PhotoInlineFormSet
+from gshs.forms import PhotoInlineFormSet, PlaceImageFormSet
 from django.urls import reverse_lazy
 # from django.utils import timezone
-from django.db import transaction
+from django.db import transaction 
 import pytz
+from django.db import transaction
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 # from django.contrib import messages
@@ -836,8 +837,8 @@ class PlaceLV(ListView):
     template_name = 'gshs/place/list-place.html'  
 
     def get_queryset(self, **kwargs):
-        self.place_gubun = self.kwargs['place_gubun']
-        self.place_name = Place.objects.get(room=self.place_gubun)
+        self.place_gubun = self.kwargs['pk']
+        self.place_name = Place.objects.get(id=self.place_gubun)
         queryset = Place.objects.filter(buseo=self.place_name.buseo)   
         return queryset
 
@@ -847,7 +848,8 @@ class PlaceLV(ListView):
         self.place_list = self.place_name.infogigi_set.all().select_related('productgubun','people','place')
         context['place_gigi_list'] = self.place_name.infogigi_set.filter(productgubun__sub_division='PRINTER').select_related('productgubun','people','place')         
         context['place_people_list'] = self.place_name.infogigi_set.filter(Q(productgubun__sub_division='NOTEBOOK') | Q(productgubun__sub_division='DESKTOP')).select_related('productgubun','people','place')   
-        context['place_id'] = self.place_name.id
+        context['place_id'] = self.place_gubun
+        context['place_name'] = self.place_name
 
         suri_data = [] 
         for i in range(len(self.place_list)): 
@@ -865,5 +867,52 @@ class PlaceLV(ListView):
 
         return context
 
-def photo_place(request, pk):
-    pass
+def photo_place(request, pk):    
+    # 글을 수정사항을 입력하고 제출을 눌렀을 때
+    if request.method == "POST":        
+        form = PhotoForm(request.POST, request.FILES)    
+        if form.is_valid():
+            for img in request.FILES.getlist('images'):                        
+                photo = Photo(image=img, place=form.instance.place)
+                photo.save() 
+                       
+        return redirect('gshs:list_place' + str(pk))
+        
+    # 수정사항을 입력하기 위해 페이지에 처음 접속했을 때
+    else:
+        form = PhotoForm()
+        context = {'form':form, 'place_id': pk}
+        return render(request, 'gshs/place/edit_place_image.html', context)        
+
+class PlacePhotoUV(UpdateView):    
+    model = Place
+    fields = ('building', 'room', 'buseo') 
+    template_name = 'gshs/place/photo-update-place.html'
+
+    def get_success_url(self):
+        place_id = self.get_object()
+        return reverse_lazy('gshs:list_place', kwargs={'pk':place_id.id})
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.request.POST:
+            context['formset'] = PlaceImageFormSet(self.request.POST, self.request.FILES, instance=self.object)
+        else:
+            context['formset'] = PlaceImageFormSet(instance=self.object)
+        return context
+    def form_valid(self, form):
+        context = self.get_context_data()
+        formset = context['formset']
+        if formset.is_valid():
+            with transaction.atomic():
+                self.object = form.save()
+                formset.instance = self.object
+                formset.save()
+
+                items = Photo.objects.filter(place=form.instance.pk)
+                for item in items:
+                    if not item.image:
+                        item.delete()
+            return redirect(self.get_success_url())        
+        else:
+            return self.render_to_response(self.get_context_data(form=form))

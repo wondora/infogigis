@@ -56,7 +56,7 @@ urlpatterns = [
     path('infogigi/bupum/update/<int:pk>/', views.update_bupum, name='update_bupum'),
     path('infogigi/bupum/delete/<int:pk>/', views.delete_bupum, name='delete_bupum'),
     # 위치
-    path('infogigi/place/list/<str:place_gubun>/', views.PlaceLV.as_view(), name='list_place'),
+    path('infogigi/place/list/<int:pk>/', views.PlaceLV.as_view(), name='list_place'),
     path('infogigi/place/photo/<int:pk>/', views.photo_place, name='photo_place'),
-] 
-  
+    path('infogigi/place/photo/update/<int:pk>/', views.PlacePhotoUV.as_view(), name='photo_update_place'),
+]  

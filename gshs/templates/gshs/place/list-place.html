@@ -11,20 +11,29 @@
 
 <div style="display:flex;width:100%;justify-content: center;margin-top:40px;">
   <div class="place-left" style="width:20%;padding:0 30px 30px;margin-left:5%;">
-    <div class="place-left-sub"><h4>{{ gubun }}</h4></div>
+    <div class="place-left-sub"><h5>{{ gubun }}</h5></div>
       <ul class="{{item.room}}">
         {% for item in object_list %}
-        <li><a href="{% url 'gshs:list_place' item.room %}">{{item.room}}</a></li> 
+        <li><a href="{% url 'gshs:list_place' item.id %}">{{item.room}}</a></li> 
         {% endfor %}    
       </ul>
   </div>
 
-  <div class="place-right" style="width:80%;padding:20px;margin-left: 20px;margin-right:5%;">
-    <button style="position:absolute; right:10px; top:0;" class="custom-btn js-photo-place {{ place_id }}" data-url="{% url 'gshs:photo_place'%}" title="그림 삽입">
-      <i class="fas fa-tools"></i>
-    </button>
+  <div class="place-right" style="position:relative;width:80%;padding:20px;margin-left: 20px;margin-right:5%;">
+    <a style="position:absolute; right:-20px; top:0;" class="custom-btn" href="{% url 'gshs:photo_place'  place_id %}" title="그림 삽입">
+      <i class="far fa-images"></i>
+    </a>
+    <a style="position:absolute; right:-20px; top:40px;" class="custom-btn" href="{% url 'gshs:photo_update_place'  place_id %}" title="그림 수정">
+      <i class="far fa-edit"></i>
+    </a>
     <div style="margin-bottom:80px;">
-      <h1>그림 들어갈 자리</h1>    
+      <div class="fotorama" data-fit="contain" data-allowfullscreen="true" data-nav="thumbs" data-width="100%">
+        {% if place_name.photo_set.all %}            
+            {% for photo in place_name.photo_set.all %}
+                <a href="{{ photo.image.url }}"><img src={{ photo.image.url }}></a>
+            {% endfor %}            
+        {% endif %}
+      </div>
     </div>
     <div>
       <span class="bd-callout2" style="font-size:1rem;">부서원</span>

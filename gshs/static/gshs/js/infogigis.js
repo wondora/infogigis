@@ -163,7 +163,7 @@ $(function () {
     $(".js-suri-place").click(loadForm2);
     $("#modal-place").on("submit", ".js-place-suri-form", surisaveForm2);
     //공간내 사진
-    $(".js-photo-place").click(loadForm2);
+   // $(".js-photo-place").click(loadForm2);
     
     // 부품 교환    
     $(".js-bupum-infogigi").click(loadForm);
