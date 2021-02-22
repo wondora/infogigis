@@ -412,7 +412,7 @@ class SearchRepairLV(ListView):
         context['word'] = word        
         return context
 
-class RepairPhotoUV(UpdateView):    
+class RepairPhotoUV(LoginRequiredMixin, UpdateView):    
     queryset = Repair.objects.all().select_related('infogigi')
     fields = ('infogigi', 'cause', 'result', 'price', 'bigo')
     success_url = reverse_lazy('gshs:suri_list')
@@ -650,7 +650,7 @@ class SearchpeopleLV(ListView):
         context['word'] = word        
         return context
 
-class PeopleCV(CreateView):
+class PeopleCV(LoginRequiredMixin, CreateView):
     template_name = 'gshs/people/people-create.html'
     success_url = reverse_lazy('gshs:people_list') 
     form_class = PeopleForm
@@ -867,6 +867,7 @@ class PlaceLV(ListView):
 
         return context
 
+@login_required
 def photo_place(request, pk):    
     # 글을 수정사항을 입력하고 제출을 눌렀을 때
     if request.method == "POST":        
@@ -884,7 +885,8 @@ def photo_place(request, pk):
         context = {'form':form, 'place_id': pk}
         return render(request, 'gshs/place/edit_place_image.html', context)        
 
-class PlacePhotoUV(UpdateView):    
+
+class PlacePhotoUV(LoginRequiredMixin, UpdateView):    
     model = Place
     fields = ('building', 'room', 'buseo') 
     template_name = 'gshs/place/photo-update-place.html'
