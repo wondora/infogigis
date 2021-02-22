@@ -838,18 +838,18 @@ class PlaceLV(ListView):
 
     def get_queryset(self, **kwargs):
         self.place_gubun = self.kwargs['pk']
-        self.place_name = Place.objects.get(id=self.place_gubun)
-        queryset = Place.objects.filter(buseo=self.place_name.buseo)   
+        self.place_number = Place.objects.get(id=self.place_gubun)
+        queryset = Place.objects.filter(buseo=self.place_number.buseo)   
         return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['gubun'] = self.place_name.buseo
-        self.place_list = self.place_name.infogigi_set.all().select_related('productgubun','people','place')
-        context['place_gigi_list'] = self.place_name.infogigi_set.filter(productgubun__sub_division='PRINTER').select_related('productgubun','people','place')         
-        context['place_people_list'] = self.place_name.infogigi_set.filter(Q(productgubun__sub_division='NOTEBOOK') | Q(productgubun__sub_division='DESKTOP')).select_related('productgubun','people','place')   
+        context['gubun'] = self.place_number.buseo
+        self.place_list = self.place_number.infogigi_set.all().select_related('productgubun','people','place')
+        context['place_gigi_list'] = self.place_number.infogigi_set.filter(productgubun__sub_division='PRINTER').select_related('productgubun','people','place')         
+        context['place_people_list'] = self.place_number.infogigi_set.filter(Q(productgubun__sub_division='NOTEBOOK') | Q(productgubun__sub_division='DESKTOP')).select_related('productgubun','people','place')   
         context['place_id'] = self.place_gubun
-        context['place_name'] = self.place_name
+        context['place_number'] = self.place_number
 
         suri_data = [] 
         for i in range(len(self.place_list)): 

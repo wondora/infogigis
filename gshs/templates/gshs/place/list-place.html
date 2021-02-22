@@ -19,7 +19,10 @@
       </ul>
   </div>
 
-  <div class="place-right" style="position:relative;width:80%;padding:20px;margin-left: 20px;margin-right:5%;">
+  <div class="place-right" style="position:relative;width:80%;padding:0 20px 20px;margin-left: 20px;margin-right:5%;">
+    <div class="sub-title">
+        <span class="bd-callout1">교육정보부</span>
+    </div>
     <a style="position:absolute; right:-20px; top:0;" class="custom-btn" href="{% url 'gshs:photo_place'  place_id %}" title="그림 삽입">
       <i class="far fa-images"></i>
     </a>
@@ -28,15 +31,15 @@
     </a>
     <div style="margin-bottom:80px;">
       <div class="fotorama" data-fit="contain" data-allowfullscreen="true" data-nav="thumbs" data-width="100%">
-        {% if place_name.photo_set.all %}            
-            {% for photo in place_name.photo_set.all %}
+        {% if place_number.photo_set.all %}            
+            {% for photo in place_number.photo_set.all %}
                 <a href="{{ photo.image.url }}"><img src={{ photo.image.url }}></a>
             {% endfor %}            
         {% endif %}
       </div>
     </div>
-    <div>
-      <span class="bd-callout2" style="font-size:1rem;">부서원</span>
+    <div class="sub-title">
+      <span class="bd-callout1" style="font-size:1rem;">부서원</span>
     </div>
     <div style="margin-bottom:80px;">
       <table class="place-table" id="infogigi-table">
@@ -55,8 +58,8 @@
         </tbody>
       </table>   
     </div>
-    <div>
-      <span class="bd-callout2" style="font-size:1rem;">복합기</span>
+    <div class="sub-title">
+      <span class="bd-callout1" style="font-size:1rem;">복합기</span>
     </div>
     <div style="margin-bottom:80px;">
       <table class="place-table" id="infogigi-table">
@@ -74,8 +77,8 @@
         </tbody>
       </table>   
     </div>
-    <div style="position:relative;">
-      <span class="bd-callout2" style="font-size:1rem;">수리</span>
+    <div  class="sub-title" style="position:relative;">
+      <span class="bd-callout1" style="font-size:1rem;">수리</span>
       <button style="position:absolute; right:10px; top:0;" class="custom-btn js-suri-place {{ place_id }}" data-url="{% url 'gshs:suri_place'%}" title="공간내 수리">
         <i class="fas fa-tools"></i>
       </button>
@@ -96,8 +99,8 @@
         </tbody>
       </table>   
     </div>
-    <div>
-      <span class="bd-callout2" style="font-size:1rem;">부품교체</span>
+    <div class="sub-title">
+      <span class="bd-callout1" style="font-size:1rem;">부품교체</span>
     </div>
     <div style="margin-bottom:50px;">
       <table class="place-table" id="infogigi-table">
