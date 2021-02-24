@@ -14,7 +14,7 @@ services:
       - 80:80
 
   django-gunicorn:
-    image: django-guni-image:3
+    image: django-guni-image:1
     networks:
       - network
     volumes:
@@ -30,7 +30,7 @@ services:
       - network
     volumes:
       - maria-database:/var/lib/mysql
-    secrets:
+    secrets: 
       - MYSQL_PASSWORD
       - MYSQL_ROOT_PASSWORD
     environment:
