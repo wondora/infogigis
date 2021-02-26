@@ -39,7 +39,7 @@ class InfogigiLV(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)  
               
-        gigi = Productgubun.objects.filter(main_division='infogigi')
+        gigi = Productgubun.objects.filter(main_division='infogigi').values('sub_division')      
         context["productgubun"] =gigi 
         context["gigigubun"] = self.gigigubun 
         paginator = context['paginator']

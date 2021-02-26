@@ -13,7 +13,7 @@
     <select class="form-select gigigubun" data-gigi="{{gigigubun}}">
         <option value='all'>ALL</option>
     {% for gubun in productgubun %}
-        <option value={{gubun}}>{{gubun}}</option>
+        <option value={{gubun.sub_division}}>{{gubun.sub_division}}</option>
     {% endfor %}
     </select>
     <span style="border:1px solid #ccc; padding: 7px 10px; color: #f1f1f1; font-size: 14px; font-weight: bold; background-color:#616161;">{{ gigi_count }}</span>
