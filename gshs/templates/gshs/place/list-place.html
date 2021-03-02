@@ -10,18 +10,18 @@
 {% block content %}
 
 <div style="display:flex;width:100%;justify-content: center;margin-top:40px;">
-  <div class="place-left" style="width:20%;padding:0 30px 30px;margin-left:5%;">
+  <div class="place-left">
     <div class="place-left-sub"><h5>{{ gubun }}</h5></div>
       <ul class="{{item.room}}">
         {% for item in object_list %}
-        <li><a href="{% url 'gshs:list_place' item.id %}">{{item.room}}</a></li> 
+        <li><a href="{% url 'gshs:list_place' item.room %}">{{item.room}}</a></li> 
         {% endfor %}    
       </ul>
   </div>
 
   <div class="place-right" style="position:relative;width:80%;padding:0 20px 20px;margin-left: 20px;margin-right:5%;">
     <div class="sub-title">
-        <span class="bd-callout1">교육정보부</span>
+        <span class="bd-callout1">{{ place_gubun }}</span>
     </div>
     <a style="position:absolute; right:-20px; top:40;" class="custom-btn" href="{% url 'gshs:photo_place'  place_id %}" title="그림 삽입">
       <i class="far fa-images"></i>

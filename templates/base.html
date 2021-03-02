@@ -79,9 +79,9 @@
                 <li>  
                     <a href="#">location</a>
                     <ul>
-                        <li><a href="{% url 'gshs:list_place' pk=2 %}">buseo</a></li>                                                                      
-                        <li><a href="{% url 'gshs:list_place' pk=2 %}">lecture&laboratory</a></li>                                                                      
-                        <li><a href="{% url 'gshs:list_place' pk=2 %}">others</a></li>                                                                      
+                        <li><a href="{% url 'gshs:list_place' place_gubun='교육정보부' %}">buseo</a></li>                                                                      
+                        <li><a href="{% url 'gshs:list_place' place_gubun='화학과협의회실(433)' %}">lecture_lab</a></li>                                                                      
+                        <li><a href="{% url 'gshs:list_place' place_gubun='위클래스' %}">others</a></li>                                                                      
                     </ul> 
                 </li>
                 <li><a href="{% url 'gshs:people_list' %}">people</a></li> 

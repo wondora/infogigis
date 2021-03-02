@@ -837,8 +837,8 @@ class PlaceLV(ListView):
     template_name = 'gshs/place/list-place.html'  
 
     def get_queryset(self, **kwargs):
-        self.place_gubun = self.kwargs['pk']
-        self.place_number = Place.objects.get(id=self.place_gubun)
+        self.place_gubun = self.kwargs['place_gubun']
+        self.place_number = Place.objects.get(room=self.place_gubun)
         queryset = Place.objects.filter(buseo=self.place_number.buseo)   
         return queryset
 
@@ -848,8 +848,8 @@ class PlaceLV(ListView):
         self.place_list = self.place_number.infogigi_set.all().select_related('productgubun','people','place')
         context['place_gigi_list'] = self.place_number.infogigi_set.filter(productgubun__sub_division='PRINTER').select_related('productgubun','people','place')         
         context['place_people_list'] = self.place_number.infogigi_set.filter(Q(productgubun__sub_division='NOTEBOOK') | Q(productgubun__sub_division='DESKTOP')).select_related('productgubun','people','place')   
-        context['place_id'] = self.place_gubun
-        context['place_number'] = self.place_number
+        context['place_id'] = self.place_number.id
+        context['place_gubun'] = self.place_gubun
 
         suri_data = [] 
         for i in range(len(self.place_list)): 
