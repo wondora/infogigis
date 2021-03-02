@@ -12,7 +12,7 @@
 <div style="display:flex;width:100%;justify-content: center;margin-top:40px;">
   <div class="place-left">
     <div class="place-left-sub"><h5>{{ gubun }}</h5></div>
-      <ul class="{{item.room}}">
+      <ul>
         {% for item in object_list %}
         <li><a href="{% url 'gshs:list_place' item.room %}">{{item.building}}/{{item.room}}</a></li> 
         {% endfor %}    

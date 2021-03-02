@@ -115,6 +115,7 @@ footer { width: 100% ; height: 150px; margin-top: 30px;}
 }
 .content .place-left ul {
     font-size: 0;
+    margin:0;
 }
 .content .place-left li {
     display: inline-block;
@@ -127,7 +128,7 @@ footer { width: 100% ; height: 150px; margin-top: 30px;}
     overflow: hidden;
 }
 
-.content .place-left li:nth-last-child {
+.content .place-left li:last-child {
     border-bottom: none;
 }
 .content .place-left li a {

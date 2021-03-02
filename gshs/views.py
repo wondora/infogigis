@@ -839,7 +839,7 @@ class PlaceLV(ListView):
     def get_queryset(self, **kwargs):
         self.place_gubun = self.kwargs['place_gubun']
         self.place_number = Place.objects.get(room=self.place_gubun)
-        queryset = Place.objects.filter(buseo=self.place_number.buseo)   
+        queryset = Place.objects.filter(buseo=self.place_number.buseo).order_by('building')  
         return queryset
 
     def get_context_data(self, **kwargs):
