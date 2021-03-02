@@ -14,7 +14,7 @@
     <div class="place-left-sub"><h5>{{ gubun }}</h5></div>
       <ul class="{{item.room}}">
         {% for item in object_list %}
-        <li><a href="{% url 'gshs:list_place' item.room %}">{{item.room}}</a></li> 
+        <li><a href="{% url 'gshs:list_place' item.room %}">{{item.building}}/{{item.room}}</a></li> 
         {% endfor %}    
       </ul>
   </div>
