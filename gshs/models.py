@@ -49,7 +49,8 @@ class Place(models.Model):
         return '({}) {}'.format(self.building, self.room)
 
 class People(models.Model):
-    name = models.CharField(u'성명', max_length=100, null=True, blank=True)    
+    name = models.CharField(u'성명', max_length=50, null=True, blank=True)  
+    address = models.CharField('주소',max_length=100, null=True, blank=True)  
     phone_number = models.CharField(u'핸드폰', max_length=20, blank=True, null=True)
     tel_number = models.CharField(u'내선', max_length=5, blank=True, null=True)
     status = models.BooleanField('재직', default=True)
