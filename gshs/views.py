@@ -850,6 +850,7 @@ class PlaceLV(ListView):
         context['place_people_list'] = self.place_number.infogigi_set.filter(Q(productgubun__sub_division='NOTEBOOK') | Q(productgubun__sub_division='DESKTOP')).select_related('productgubun','people','place')   
         context['place_id'] = self.place_number.id
         context['place_gubun'] = self.place_gubun
+        context['place_number'] = self.place_number
 
         suri_data = [] 
         for i in range(len(self.place_list)): 
@@ -876,8 +877,9 @@ def photo_place(request, pk):
             for img in request.FILES.getlist('images'):                        
                 photo = Photo(image=img, place=form.instance.place)
                 photo.save() 
-                       
-        return redirect('gshs:list_place' + str(pk))
+
+        place_gubun = Place.objects.get(id=pk)               
+        return redirect('gshs:list_place',  place_gubun=place_gubun.room)
         
     # 수정사항을 입력하기 위해 페이지에 처음 접속했을 때
     else:
@@ -893,7 +895,7 @@ class PlacePhotoUV(LoginRequiredMixin, UpdateView):
 
     def get_success_url(self):
         place_id = self.get_object()
-        return reverse_lazy('gshs:list_place', kwargs={'pk':place_id.id})
+        return reverse_lazy('gshs:list_place', kwargs={'place_gubun':place_id.room})
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
