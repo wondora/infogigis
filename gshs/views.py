@@ -67,7 +67,7 @@ class SearchinfoLV(ListView):
     def get_queryset(self, **kwargs):
         # self.gigigubun = self.kwargs['gigigubun']
         self.word = self.request.GET.get('word')
-        post_list = Infogigi.objects.filter(Q(status=True)| Q(people__name__contains=self.word) | Q(ip__contains=self.word) | Q(place__room__contains=self.word))
+        post_list = Infogigi.objects.filter(Q(status=True), Q(people__name__contains=self.word) | Q(ip__contains=self.word) | Q(place__room__contains=self.word))
         return post_list
 
     def get_context_data(self, **kwargs):
@@ -627,7 +627,7 @@ class SearchpeopleLV(ListView):
 
     def get_queryset(self):
         word = self.request.GET.get('word')
-        post_list = People.objects.filter(Q(status=True)|Q(name__icontains=word)|Q(place__room__icontains=word))
+        post_list = People.objects.filter(Q(status=True), Q(name__icontains=word))
         return post_list
 
     def get_context_data(self, **kwargs):
