@@ -1,5 +1,6 @@
 {% for item in place_gigi_list %}
-    <tr>  
+    <tr>
+        <td>{{ item.productgubun.sub_division }}</td>
         <td>{{ item.buy_date|date:'Y.m.d'}}</td> 
         <td>{{ item.maker }}</td>
         <td>{{ item.model }}</td>       
