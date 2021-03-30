@@ -33,36 +33,38 @@
       <div class="fotorama" data-fit="contain" data-allowfullscreen="true" data-nav="thumbs" data-width="100%">
         {% if place_number.photo_set.all %}            
             {% for photo in place_number.photo_set.all %}
-                <a href="{{ photo.image.url }}"><img src={{ photo.image.url }}></a>
+                <a href="{{ photo.image.url }}"><img src="{{ photo.image.url }}"></a>
             {% endfor %}            
         {% endif %}
       </div>
     </div>
-    <div class="sub-title">
-      <span class="bd-callout1" style="font-size:1rem;">부서원</span>
-    </div>
-    <div style="margin-bottom:80px;">
-      <table class="place-table" id="infogigi-table">
-        <thead style="font-size: 14px;">
-            <tr>  
-              <th>구분</th>            
-              <th>구매일</th> 
-              <th>성명</th>  
-              <th>제조사</th>
-              <th>모델명</th>                             
-              <th>Ip</th>                
-            </tr>
-        </thead>
-        <tbody>
-            {% include './partial-place-peoplelist.html' %}
-        </tbody>
-      </table>   
-    </div>
+    {% if place_buseo_gubun == "부서" %}
+      <div class="sub-title">
+        <span class="bd-callout1" style="font-size:1rem;">부서원</span>
+      </div>
+      <div style="margin-bottom:80px;">
+        <table class="place-table">
+          <thead style="font-size: 14px;">
+              <tr>
+                <th>구분</th>
+                <th>구매일</th>
+                <th>성명</th>
+                <th>제조사</th>
+                <th>모델명</th>
+                <th>Ip</th>
+              </tr>
+          </thead>
+          <tbody>
+              {% include './partial-place-peoplelist.html' %}
+          </tbody>
+        </table>
+      </div>
+    {% endif %}
     <div class="sub-title">
       <span class="bd-callout1" style="font-size:1rem;">복합기</span>
     </div>
     <div style="margin-bottom:80px;">
-      <table class="place-table" id="infogigi-table">
+      <table class="place-table">
         <thead style="font-size: 14px;">
             <tr>  
               <th>구매일</th> 
@@ -84,7 +86,7 @@
       </button>
     </div>
     <div style="margin-bottom:80px;">
-      <table class="place-table" id="infogigi-table">
+      <table class="place-table">
         <thead style="font-size: 14px;">
             <tr>
               <th>수리일</th> 

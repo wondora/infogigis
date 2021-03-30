@@ -4,7 +4,7 @@
 {% load imagekit %}
 {% load humanize %} 
 
-{% block title %}Home Page {% endblock %}
+{% block title %}Suri page{% endblock %}
 {% block js %} 
 <script type="text/javascript" src="{% static 'gshs/js/infogigis.js' %}"></script>   
 {% endblock %}
@@ -15,7 +15,7 @@
 </div>
 <div style="display: inline-block; width: 60%;  text-align:right;">
     <form action="{% url 'gshs:search_suri' %}" method="get" style="display:inline-block;" >        
-        <input style="height:32px;padding:0 10px;" type="text" name="word" class="form-class" value={{ word }}> 
+        <input style="height:32px;padding:0 10px;" type="text" name="word" class="form-class" value="{{ word }}">
         <button class="custom-btn" style="margin-top:2px;">
             <i class="fas fa-search"></i>
         </button> 
@@ -43,25 +43,27 @@
                     </a>            
                     <a style="color: #dc3545;" href="{% url 'gshs:suri_delete' item.id %}" onclick="return confirm('정말 삭제하시겠습니까?')" title="글 삭제">
                         <i class="fas fa-trash"></i>
-                    </a> 
+                    </a>
                 </div>
             </div>
             
             <div class="card-body">
                 <div class="fotorama" data-fit="contain" data-allowfullscreen="true" data-nav="thumbs" data-width="100%">
-                    {% if item.photo_set.all %}            
+                    {% if item.photo_set.all %}
                         {% for photo in item.photo_set.all %}
-                            <a href="{{ photo.image.url }}"><img src={{ photo.image.url }}></a>
+                            <a href="{{ photo.image.url }}"><img src="{{ photo.image.url }}"></a>
                         {% endfor %}            
-                    {% endif %}  
+                    {% endif %}
+
                 </div>
                 <h5 class="card-title" style="font-size: 15px; color: #bbb; margin-bottom:0.2rem;">원인</h5>
-                <p class="card-text" style="font-size: 15px;padding: 5px 10px 10px">{{ item.cause }}</p>
+                <p class="card-text">{{ item.cause }}</p>
                 <h5 class="card-title" style="font-size: 15px; color: #bbb;margin-bottom:0.2rem;">해결</h5>
-                <p class="card-text" style="font-size: 15px; padding: 5px 10px 10px;">{{ item.result|linebreaksbr }}</p>            
-                {% if item.bigo %}  
-                    <P class="repair-sub" style="border: 1px solid #bbb; padding: 10px;">{{ item.bigo }}</P>
-                {% endif %}                 
+                <p class="card-text">{{ item.result|linebreaksbr }}</p>
+                {% if item.bigo %}
+                    <h5 class="card-title" style="font-size: 15px; color: #bbb;margin-bottom:0.2rem;">비고</h5>
+                    <P class="card-text">{{ item.bigo }}</P>
+                {% endif %}
                 <p class="btn btn-secondary">&#8361; {{ item.price|intcomma }}</p>
                 
             </div>

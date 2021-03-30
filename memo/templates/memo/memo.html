@@ -34,8 +34,8 @@
         </form>               
         <div id="memo_list">
             {% for memo in object_list %}
-            <div class="memo{{ memo.id }}">
-                <p><span>{{ memo.created_date|date:'Y.m.d' }}</span><button class='del_memo' data-url="{% url 'memo:del_memo' pk=memo.id %}">del</button></p>
+            <div class="memo{{ memo.id }}" style="border-radius:10px;">
+                <p><span class="date_span">{{ memo.created_date|date:'Y.m.d' }}</span><button class='del_memo' data-url="{% url 'memo:del_memo' pk=memo.id %}">del</button></p>
                 <p><span>{{ memo.title }}</span></p>
             </div>  
             {% endfor %}         
