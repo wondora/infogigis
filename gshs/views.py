@@ -858,9 +858,9 @@ class PlaceLV(ListView):
             for i in range(len(self.place_list)):
                 if not self.place_list[i].repair_set.all().select_related('infogigi'):
                     continue
-                suri_data.append(self.place_number.repair_set.all().select_related('infogigi'))
+                suri_data.append(self.place_list[i].repair_set.all().select_related('infogigi'))
         else:
-            suri_data.append(self.place_number.repair_set.all().select_related('place'))
+            suri_data.append(self.place_list[i].repair_set.all().select_related('place'))
 
         context['place_suri_list'] = suri_data
 
