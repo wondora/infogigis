@@ -5,7 +5,8 @@
         <td>{{ item.infogigi.maker}}</td>
         <td>{{ item.infogigi.model}}</td>
         <td>{{ item.cause|truncatechars:7 }}</td>
-        <td>{{ item.result|truncatechars:15 }}</td>            
+        <td>{{ item.result|truncatechars:15 }}</td>    
+        <td>&#8361;&nbsp;{{ item.price|intcomma }}</td>  
     </tr> 
   {% endfor %}
 {% endfor %}
