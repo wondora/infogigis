@@ -75,7 +75,7 @@ class Jaego(models.Model):
     bigo = models.CharField(max_length=100,blank=True, null=True)
 
     class Meta:
-        ordering = ['-rental_status']
+        ordering = ['-rental_status', '-created_date']
         db_table = 'jaego'
 
     def __str__(self):

@@ -844,7 +844,7 @@ class PlaceLV(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['gubun'] = self.place_number.buseo
+        context['gubun'] = self.place_number.bus
         self.place_list = self.place_number.infogigi_set.all().select_related('productgubun', 'people', 'place')
         context['place_gigi_list'] = self.place_number.infogigi_set.filter(Q(productgubun__sub_division__iexact='PRINTER') | Q(productgubun__sub_division__iexact='PROJECTOR') | Q(productgubun__sub_division__iexact='TV')).select_related('productgubun', 'people', 'place')
         context['place_people_list'] = self.place_number.infogigi_set.filter(Q(productgubun__sub_division__iexact='NOTEBOOK') | Q(productgubun__sub_division__iexact='DESKTOP')).select_related('productgubun', 'people', 'place')
